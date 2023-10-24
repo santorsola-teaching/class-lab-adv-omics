@@ -45,7 +45,10 @@ git clone https://github.com/lescai-teaching/datasets_reference_only.git
 
 ## Prepare the INPUT samplesheet 
 
-filename=```sarek_samplesheet.csv```
+```vi sarek_samplesheet.csv```
+
+To edit file: I (#INSERT)
+To save and quit file: wq! (#write and quit)
 
 ```
 
@@ -54,14 +57,14 @@ for i in $(ls *.gz); do mv -- "$i" "${i%.fq.gz}.fastq.gz"; done
 
 #sarek_samplesheet.csv
 patient,sample,lane,fastq_1,fastq_2
-patient_01,sample_01,datasets_bsa-2022/rna_sequencing/raw_data/sample_01_1.fastq.gz,datasets_bsa-2022/rna_sequencing/raw_data/sample_01_2.fastq.gz,auto
-patient_02,sample_02,datasets_bsa-2022/rna_sequencing/raw_data/sample_02_1.fastq.gz,datasets_bsa-2022/rna_sequencing/raw_data/sample_02_2.fastq.gz,auto
+patient_01,sample_01,lane1,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_2.fastq.gz
+patient_02,sample_02,lane1,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_2.fastq.gz
 ```
 
 
 ## Prepare your config
 
-filename=```google.config```
+``` vi google.config```
 
 Remember to edit with your personal credentials:
 - workDir
@@ -92,14 +95,14 @@ process {
 
 ## Prepare your params-file
 
-filename=```sarek-params-file.json```
+```vi sarek-params-file.json```
 
 Remember to edit with your personal credentials:
 - outdir
 
 ```
 {
-    "input": "sarek_samplesheet.csv.csv",
+    "input": "sarek_samplesheet.csv",
     "outdir": "gs:\/\/unipv-bioinf-student-msantorsola-data-main\/results",
     "split_fastq": "0",
     "no_intervals": true,
@@ -110,8 +113,8 @@ Remember to edit with your personal credentials:
     "dict": "datasets_reference_only\/sequence\/Homo_sapiens_assembly38_chr21.dict",
     "fasta": "datasets_reference_only\/sequence\/Homo_sapiens_assembly38_chr21.fasta",
     "fasta_fai": "datasets_reference_only\/sequence\/Homo_sapiens_assembly38_chr21.fasta.fai",
-    "known_indels": "datasets_reference_only\/gatkbundle\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz ",
-    "known_indels_tbi": "gatkbundle\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz.tbi",
+    "known_indels": "datasets_reference_only\/gatkbundle\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz",
+    "known_indels_tbi": "datasets_reference_only\/gatkbundle\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz.tbi",
     "igenomes_ignore": true,
     "max_cpus": 4,
     "max_memory": "60.GB",
@@ -161,5 +164,30 @@ To show the screen parameters, you can type
 
 To terminate a screen window session
 “ctrl-a” and “k” without quotes
+
+
+
+gs://unipv-bioinf-student-msantorsola-data-main/
+
+
+
+
+
+WARN: There's no process matching config selector: NFCORE_SAREK:SAREK:CRAM_QC_NO_MD:SAMTOOLS_STATS -- Did you mean: NFCORE_SAREK:SAREK:CRAM_QC_RECAL:SAMTOOLS_STATS?
+Missing or unknown field in csv file header. Please check your samplesheet
+The sample-sheet only contains tumor-samples, but the following tools, which were requested by the option "tools", expect at least one normal-sample : haplotypecaller
+Staging foreign file: /home/prof_mariangela_santorsola/datasets_reference_only/sequence/Homo_sapiens_assembly38_chr21.fasta
+Staging foreign file: /home/prof_mariangela_santorsola/datasets_reference_only/gatkbundle/dbsnp_146.hg38_chr21.vcf.gz
+
+
+
+
+patient,sample,lane,fastq_1,fastq_2
+patient_01,sample_01,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_2.fastq.gz
+patient_02,sample_02,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_2.fastq.gz
+
+patient,sample,lane,fastq_1,fastq_2
+patient1,test_sample,lane_1,test_1.fastq.gz,test_2.fastq.gz
+
 
 
