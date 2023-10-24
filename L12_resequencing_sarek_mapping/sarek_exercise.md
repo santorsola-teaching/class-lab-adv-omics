@@ -11,6 +11,7 @@ gcloud config set project ${PROJECT_ID}
 
 Install the required tools on you VM instance
 
+
 ```{bash}
 sudo yum install -y git
 sudo yum install -y java-11-openjdk-devel
@@ -61,6 +62,12 @@ patient_02,sample_02,datasets_bsa-2022/rna_sequencing/raw_data/sample_02_1.fastq
 ## Prepare your config
 
 filename=```google.config```
+
+Remember to edit with your personal credentials:
+- workDir
+- google.project
+
+
 ``` 
 profiles {
     gls {
@@ -86,6 +93,10 @@ process {
 ## Prepare your params-file
 
 filename=```sarek-params-file.json```
+
+Remember to edit with your personal credentials:
+- outdir
+
 ```
 {
     "input": "sarek_samplesheet.csv.csv",
@@ -109,6 +120,12 @@ filename=```sarek-params-file.json```
 ```
 
 ## Launch nf-core/sarek
+
+Remember to edit with your personal credentials:
+- -profile
+- -work-dir
+- params-file
+
 
 ```{bash}
 screen #
