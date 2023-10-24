@@ -42,7 +42,9 @@ git clone https://github.com/lescai-teaching/datasets_bsa-2022.git
 git clone https://github.com/lescai-teaching/datasets_reference_only.git
 ```
 
-## Prepare the INPUT samplesheet ```sarek_samplesheet.csv```
+## Prepare the INPUT samplesheet 
+
+filename=```sarek_samplesheet.csv```
 
 ```
 
@@ -58,6 +60,7 @@ patient_02,sample_02,datasets_bsa-2022/rna_sequencing/raw_data/sample_02_1.fastq
 
 ## Prepare your config
 
+filename=```google.config```
 ``` 
 profiles {
     gls {
@@ -81,8 +84,10 @@ process {
 ```
 
 ## Prepare your params-file
-```#-params-file sarek-params-file.json
-{{
+
+filename=```sarek-params-file.json```
+```
+{
     "input": "sarek_samplesheet.csv.csv",
     "outdir": "gs:\/\/unipv-bioinf-student-msantorsola-data-main\/results",
     "split_fastq": "0",
