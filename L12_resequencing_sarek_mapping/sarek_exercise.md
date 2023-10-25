@@ -58,11 +58,11 @@ patient_02,sample_02,lane1,datasets_LABOS-2023/germline/reads/control_1.fastq.gz
 
 Required information:
 
-your projectID = mbg-bioinf-student-_surname_
-your bucket = unipv-bioinf-student-_surname_-data-main
+- your projectID = mbg-bioinf-student-_surname_
+- your bucket = unipv-bioinf-student-_surname_-data-main
 
 
-Remember to edit with your personal credentials:
+Remember to configure the following parameters with your personal credentials:
 - workDir
 - google.project
 - igenomes_base
@@ -147,9 +147,6 @@ process {
 screen 
 
 nextflow run nf-core/sarek -r 3.3.2 --input datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv --outdir gs://unipv-bioinf-student-msantorsola-data-main/results --tools haplotypecaller --genome GRCh38chr21 --skip_tools haplotypecaller_filter -c nextflow.config -profile gls
-
-
-
 ```
 
 ## Check the running workflow
@@ -180,6 +177,9 @@ To terminate a screen window session
 
 
 ### Read VCF
+
+You can copy you VCF files to your cloud shell
+
 ```gsutils cp gs://resultsdir-in-your-bucket/path/to/*.vcf.gz .```
 
 
