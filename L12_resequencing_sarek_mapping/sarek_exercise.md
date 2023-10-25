@@ -1,15 +1,12 @@
 # nf-core/sarek - mapping
 
+
 ## Set your working place
 
-Create your VM instance from Google Cloud Console.
-To check you are working within the COURSE project, open cloud shell and type:
+- Create your VM instance from Google Cloud Console.
 
-```{bash}
-gcloud config set project ${PROJECT_ID}
-```
 
-Install the required tools on you VM instance
+- Install the required tools on you VM instance
 
 
 ```{bash}
@@ -30,46 +27,45 @@ cd ..
 export PATH=${PATH}:${PWD}
 ```
 
-### Upload your nextflow credentials key
+## Upload your nextflow credentials key
 
 ```{bash}
 export GOOGLE_APPLICATION_CREDENTIALS=/home/YOUR_HOME_FOLDER/NAME-OF-YOUR-KEY.json
 ```
 
+_Upload may take several attempts, e.g. caused by SSH authentication failure. When the upload is successful, the message *"Transferred 1 item"* appears on the VM SSH terminal._
+
 ## Download the datasets and the reference data
 
 ```{bash}
-git clone https://github.com/lescai-teaching/datasets_bsa-2022.git
-git clone https://github.com/lescai-teaching/datasets_reference_only.git
+git clone https://github.com/santorsola-teaching/datasets_LABOS-2023.git
 ```
 
-## Prepare the INPUT samplesheet 
+### Prepare the INPUT samplesheet 
 
-```vi sarek_samplesheet.csv```
-
-To edit file: I (#INSERT)
-To save and quit file: wq! (#write and quit)
+Now available in ```datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv```.
 
 ```
-
-#rename fastq files
-for i in $(ls *.gz); do mv -- "$i" "${i%.fq.gz}.fastq.gz"; done
-
-#sarek_samplesheet.csv
 patient,sample,lane,fastq_1,fastq_2
-patient_01,sample_01,lane1,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_2.fastq.gz
-patient_02,sample_02,lane1,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_2.fastq.gz
+patient_01,sample_01,lane1,datasets_LABOS-2023/germline/reads/case_1.fastq.gz,datasets_LABOS-2023/germline/reads/case_2.fastq.gz
+patient_02,sample_02,lane1,datasets_LABOS-2023/germline/reads/control_1.fastq.gz,datasets_LABOS-2023/germline/reads/control_2.fastq.gz
 ```
 
 
 ## Prepare your config
 
-``` vi google.config```
+``` vi nextflow.config```
+
+Required information:
+
+your projectID = mbg-bioinf-student-_surname_
+your bucket = unipv-bioinf-student-_surname_-data-main
+
 
 Remember to edit with your personal credentials:
 - workDir
 - google.project
-
+- igenomes_base
 
 ``` 
 profiles {
@@ -80,63 +76,80 @@ profiles {
         google.region  = 'europe-west4'
         google.project = 'YOUR-PROJECT-NAME'
         google.lifeSciences.usePrivateAddress = 'true'
-	    google.batch.spot = true
+        google.batch.spot = true
         fusion.enabled = true
         wave.enabled = true
         process.scratch = false
     }
 }
+
+
 process {
   errorStrategy = { task.exitStatus in [1,143,137,104,134,139,255,108] ? 'retry' : 'finish' }
   maxRetries = 4
   maxErrors = '-1'
 }
-```
 
-## Prepare your params-file
+params {
+    max_cpus   = 2
+    max_memory = '6.5GB'
+    max_time   = '4.h'
+    igenomes_base = '/home/YOUR-USER-NAME/datasets_LABOS-2023/refs'
 
-```vi sarek-params-file.json```
+    genomes {
+        'GRCh38chr21' {
+            bwa                   = "${params.igenomes_base}/sequence/Homo_sapiens_assembly38_chr21.fasta.{amb,ann,bwt,pac,sa}"
+            dbsnp                 = "${params.igenomes_base}/annotations/dbsnp_146.hg38_chr21.vcf.gz"
+            dbsnp_tbi             = "${params.igenomes_base}/annotations/dbsnp_146.hg38_chr21.vcf.gz.tbi"
+            dbsnp_vqsr            = '--resource:dbsnp,known=false,training=true,truth=false,prior=2.0 dbsnp_146.hg38_chr21.vcf.gz'
+            dict                  = "${params.igenomes_base}/sequence/Homo_sapiens_assembly38_chr21.dict"
+            fasta                 = "${params.igenomes_base}/sequence/Homo_sapiens_assembly38_chr21.fasta"
+            fasta_fai             = "${params.igenomes_base}/sequence/Homo_sapiens_assembly38_chr21.fasta.fai"
+            germline_resource     = "${params.igenomes_base}/annotations/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only_chr21.vcf.gz"
+            germline_resource_tbi = "${params.igenomes_base}/annotations/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only_chr21.vcf.gz.tbi"
+            known_snps            = "${params.igenomes_base}/annotations/1000G_phase1.snps.high_confidence.hg38_chr21.vcf.gz"
+            known_snps_tbi        = "${params.igenomes_base}/annotations/1000G_phase1.snps.high_confidence.hg38_chr21.vcf.gz.tbi"
+            known_snps_vqsr       = '--resource:1000G,known=false,training=true,truth=true,prior=10.0 1000G_phase1.snps.high_confidence.hg38_chr21.vcf.gz'
+            known_indels          = "${params.igenomes_base}/annotations/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz"
+            known_indels_tbi      = "${params.igenomes_base}/annotations/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz.tbi"
+            known_indels_vqsr     = '--resource:mills,known=false,training=true,truth=true,prior=10.0 Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz'
+            snpeff_db     = '105'
+            snpeff_genome = 'GRCh38'
+        }
+    }
 
-Remember to edit with your personal credentials:
-- outdir
-
-```
-{
-    "input": "sarek_samplesheet.csv",
-    "outdir": "gs:\/\/unipv-bioinf-student-msantorsola-data-main\/results",
-    "split_fastq": "0",
-    "no_intervals": true,
-    "tools": "haplotypecaller",
-    "bwa": "datasets_reference_only\/sequence\/Homo_sapiens_assembly38_chr21.fasta.{amb,ann,bwt,pac,sa}",
-    "dbsnp": "datasets_reference_only\/gatkbundle\/dbsnp_146.hg38_chr21.vcf.gz",
-    "dbsnp_tbi": "datasets_reference_only\/gatkbundle\/dbsnp_146.hg38_chr21.vcf.gz.tbi",
-    "dict": "datasets_reference_only\/sequence\/Homo_sapiens_assembly38_chr21.dict",
-    "fasta": "datasets_reference_only\/sequence\/Homo_sapiens_assembly38_chr21.fasta",
-    "fasta_fai": "datasets_reference_only\/sequence\/Homo_sapiens_assembly38_chr21.fasta.fai",
-    "known_indels": "datasets_reference_only\/gatkbundle\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz",
-    "known_indels_tbi": "datasets_reference_only\/gatkbundle\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz.tbi",
-    "igenomes_ignore": true,
-    "max_cpus": 4,
-    "max_memory": "60.GB",
-    "max_time": "4.h"
+    use_annotation_cache_keys = true
 }
-```
+
+process {
+    withName: 'VARIANTRECALIBRATOR_INDEL' {
+        ext.prefix = { "${meta.id}_INDEL" }
+        ext.args = "-an QD -an FS -an SOR -an DP  -mode INDEL"
+        publishDir = [
+            enabled: false
+        ]
+    }
+
+    withName: 'VARIANTRECALIBRATOR_SNP' {
+        ext.prefix = { "${meta.id}_SNP" }
+        ext.args = "-an QD -an MQ -an FS -an SOR -mode SNP"
+        publishDir = [
+            enabled: false
+        ]
+    }
+}
+``` 
 
 ## Launch nf-core/sarek
 
-Remember to edit with your personal credentials:
-- -profile
-- -work-dir
-- params-file
-
 
 ```{bash}
-screen #
+screen 
 
-nextflow run nf-core/sarek -r 3.3.2 \
- -profile google.config \
- -work-dir gs://your_bucket/work \
- -params-file sarek-params-file.json
+nextflow run nf-core/sarek -r 3.3.2 --input datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv --outdir gs://unipv-bioinf-student-msantorsola-data-main/results --tools haplotypecaller --genome GRCh38chr21 --skip_tools haplotypecaller_filter -c nextflow.config -profile gls
+
+
+
 ```
 
 ## Check the running workflow
@@ -166,28 +179,20 @@ To terminate a screen window session
 “ctrl-a” and “k” without quotes
 
 
-
-gs://unipv-bioinf-student-msantorsola-data-main/
-
-
+### Read VCF
+```gsutils cp gs://resultsdir-in-your-bucket/path/to/*.vcf.gz .```
 
 
 
-WARN: There's no process matching config selector: NFCORE_SAREK:SAREK:CRAM_QC_NO_MD:SAMTOOLS_STATS -- Did you mean: NFCORE_SAREK:SAREK:CRAM_QC_RECAL:SAMTOOLS_STATS?
-Missing or unknown field in csv file header. Please check your samplesheet
-The sample-sheet only contains tumor-samples, but the following tools, which were requested by the option "tools", expect at least one normal-sample : haplotypecaller
-Staging foreign file: /home/prof_mariangela_santorsola/datasets_reference_only/sequence/Homo_sapiens_assembly38_chr21.fasta
-Staging foreign file: /home/prof_mariangela_santorsola/datasets_reference_only/gatkbundle/dbsnp_146.hg38_chr21.vcf.gz
+_Success!!_
+_-[nf-core/sarek] Pipeline completed successfully-
+Completed at: 25-Oct-2023 10:25:43
+Duration    : 29m 57s
+CPU hours   : 0.6
+Succeeded   : 40_
 
 
 
-
-patient,sample,lane,fastq_1,fastq_2
-patient_01,sample_01,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_0.000+disease_1.000_2.fastq.gz
-patient_02,sample_02,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_1.fastq.gz,datasets_bsa-2022/germline_calling/reads/normal_1.000+disease_0.000_2.fastq.gz
-
-patient,sample,lane,fastq_1,fastq_2
-patient1,test_sample,lane_1,test_1.fastq.gz,test_2.fastq.gz
 
 
 
