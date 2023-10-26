@@ -1,4 +1,4 @@
-# nf-core/sarek - mapping
+# nf-core/sarek - mapping & annotations
 
 ## Set your working place
 
@@ -213,12 +213,17 @@ To copy you VCF files, you can type on your cloud shell:
 ```
 gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
 
+or
+
+
 gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_01/sample_01.haplotypecaller_snpEff.ann.vcf.gz .
 
 gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
 ```     
 
+gs://unipv-bioinf-student-msantorsola-data-main/results/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
 
+zcat joint_germline_recalibrated_snpEff.ann.vcf.gz | grep HIGH | perl -nae 'if($F[10]=~/0\/0/){print $_;}'
 
 
 ## Check the running workflow
