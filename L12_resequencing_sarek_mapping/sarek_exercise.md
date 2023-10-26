@@ -157,8 +157,6 @@ _Make sure to click "i" for INSERT mode in vi editor, before paste the code_
 ## Launch nf-core/sarek: single sample calling
 
 
-
-
 ```{bash}
 cd /home/YOUR-USER-NAME/
 
@@ -182,9 +180,8 @@ Succeeded   : 44_
 
 
 
-gs://results-in-your-bucket 
 
-## ## Launch nf-core/sarek: joint variant calling
+## Launch nf-core/sarek: joint variant calling
 ```
 nextflow run nf-core/sarek -r 3.3.2 \
 --input datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv \
@@ -203,6 +200,27 @@ Duration    : 55m 22s
 CPU hours   : 1.0  
 Succeeded   : 45_  
 
+
+### Read results
+
+
+In the ```results``` directory in your bucket, you should see now:
+- a single VCF file from joint variant calling
+- one VCF file for sample_01
+- one VCF file for sample_02
+
+To copy you VCF files, you can type on your cloud shell:
+```
+gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
+
+gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_01/sample_01.haplotypecaller_snpEff.ann.vcf.gz .
+
+gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
+```     
+
+
+
+
 ## Check the running workflow
 
 Find the session ID list of the current running screen sessions with:
@@ -219,36 +237,15 @@ screen -r
 In case you have multiple screen sessions running on your VM instance, you will need to append the screen session ID after "-r".
 
 
-To detach the terminal session type
+To detach the terminal session type:
 “Ctrl-A” and “d“
 
-To show the screen parameters, you can type
+To show the screen parameters, you can type:
 “Ctrl-A” and “?” without quotes.
 
 
 To terminate a screen window session
 “ctrl-a” and “k” without quotes
-
-
-### Read results
-
-
-
-In the result directory in your bucket, you should see 
-a single VCF file from joint variant calling
-one VCF file for sample_01
-one VCF file for sample_02
-
-To copy you VCF files, you can type on your cloud shell:
-```
-gsutils cp gs://results-in-your-bucket/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
-
-gsutils cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_01/sample_01.haplotypecaller_snpEff.ann.vcf.gz .
-
-gsutils cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
-```
-
-
 
 
 
