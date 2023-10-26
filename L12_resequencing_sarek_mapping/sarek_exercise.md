@@ -1,10 +1,8 @@
 # nf-core/sarek - mapping
 
-
 ## Set your working place
 
 - Create your VM instance from Google Cloud Console.
-
 
 - Install the required tools on you VM instance
 
@@ -27,13 +25,26 @@ cd ..
 export PATH=${PATH}:${PWD}
 ```
 
+Check the nextflow installation:
+
+```
+nextflow -version
+```
+
+
 ## Upload your nextflow credentials key
 
 ```{bash}
 export GOOGLE_APPLICATION_CREDENTIALS=/home/YOUR_HOME_FOLDER/NAME-OF-YOUR-KEY.json
 ```
 
-_Upload may take several attempts, e.g. caused by SSH authentication failure. When the upload is successful, the message *"Transferred 1 item"* appears on the VM SSH terminal._
+Upload may take several attempts, e.g. caused by SSH authentication failure. When the upload is successful, the message *"Transferred 1 item"* appears on the VM SSH terminal.
+To check your key path:
+
+```
+echo $GOOGLE_APPLICATION_CREDENTIALS
+```
+
 
 ## Download the datasets and the reference data
 
@@ -41,9 +52,10 @@ _Upload may take several attempts, e.g. caused by SSH authentication failure. Wh
 git clone https://github.com/santorsola-teaching/datasets_LABOS-2023.git
 ```
 
+
 ### Prepare the INPUT samplesheet 
 
-Now available in ```datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv```.
+File available in ```datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv```.
 
 ```
 patient,sample,lane,fastq_1,fastq_2
@@ -52,14 +64,14 @@ patient_02,sample_02,lane1,datasets_LABOS-2023/germline/reads/control_1.fastq.gz
 ```
 
 
-## Prepare your config
+## Prepare your config file
 
 ``` vi nextflow.config```
 
 Required information:
 
-- your projectID = mbg-bioinf-student-_surname_
-- your bucket = unipv-bioinf-student-_surname_-data-main
+- your projectID = mbg-bioinf-student-<surname>
+- your bucket = unipv-bioinf-student-<surname>-data-main
 
 
 Remember to configure the following parameters with your personal credentials:
@@ -140,14 +152,56 @@ process {
 }
 ``` 
 
-## Launch nf-core/sarek
+_Make sure to click "i" for INSERT mode in vi editor, before paste the code_
+
+## Launch nf-core/sarek: single sample calling
+
+
 
 
 ```{bash}
+cd /home/YOUR-USER-NAME/
+
 screen 
 
-nextflow run nf-core/sarek -r 3.3.2 --input datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv --outdir gs://unipv-bioinf-student-msantorsola-data-main/results --tools haplotypecaller --genome GRCh38chr21 --skip_tools haplotypecaller_filter -c nextflow.config -profile gls
+nextflow run nf-core/sarek -r 3.3.2 \
+--input datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv \
+--outdir gs://results-in-your-bucket \
+--tools haplotypecaller,snpeff \
+--genome GRCh38chr21 \
+--skip_tools haplotypecaller_filter \
+-c nextflow.config \
+-profile gls
 ```
+
+_-[nf-core/sarek] Pipeline completed successfully-  
+Completed at: 26-Oct-2023 09:38:54  
+Duration    : 38m 42s  
+CPU hours   : 0.8  
+Succeeded   : 44_  
+
+
+
+gs://results-in-your-bucket 
+
+## ## Launch nf-core/sarek: joint variant calling
+```
+nextflow run nf-core/sarek -r 3.3.2 \
+--input datasets_LABOS-2023/germline/reads/sarek_samplesheet.csv \
+--outdir gs://results-in-your-bucket  \
+--tools haplotypecaller,snpeff \
+--genome GRCh38chr21 \
+--joint_germline \
+--intervals datasets_LABOS-2023/germline/chr21_intervals.list \
+-c nextflow.config \
+-profile gls
+```
+
+_-[nf-core/sarek] Pipeline completed successfully-
+Completed at: 26-Oct-2023 10:45:23  
+Duration    : 55m 22s  
+CPU hours   : 1.0  
+Succeeded   : 45_  
 
 ## Check the running workflow
 
@@ -176,20 +230,24 @@ To terminate a screen window session
 “ctrl-a” and “k” without quotes
 
 
-### Read VCF
-
-You can copy you VCF files to your cloud shell
-
-```gsutils cp gs://resultsdir-in-your-bucket/path/to/*.vcf.gz .```
+### Read results
 
 
 
-_Success!!_
-_-[nf-core/sarek] Pipeline completed successfully-
-Completed at: 25-Oct-2023 10:25:43
-Duration    : 29m 57s
-CPU hours   : 0.6
-Succeeded   : 40_
+In the result directory in your bucket, you should see 
+a single VCF file from joint variant calling
+one VCF file for sample_01
+one VCF file for sample_02
+
+To copy you VCF files, you can type on your cloud shell:
+```
+gsutils cp gs://results-in-your-bucket/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
+
+gsutils cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_01/sample_01.haplotypecaller_snpEff.ann.vcf.gz .
+
+gsutils cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
+```
+
 
 
 
