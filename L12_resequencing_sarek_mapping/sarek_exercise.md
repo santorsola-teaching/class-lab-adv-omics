@@ -4,7 +4,7 @@
 
 - Create your VM instance from Google Cloud Console.
 
-- Install the required tools on you VM instance
+- Install the required tools on your VM instance
 
 
 ```{bash}
