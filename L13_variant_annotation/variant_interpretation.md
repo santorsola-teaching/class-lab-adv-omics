@@ -40,7 +40,7 @@ We get 9 variants which need additional data for clinical interpretation.
 
 Now we can are able to search for the position(s) we found, or their variant identifier if available (rs number) in the following databases:
 
-[gnomAD](https://gnomad.broadinstitute.org/)
-[ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/)
+- [gnomAD](https://gnomad.broadinstitute.org/)  
+- [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/)
 
 

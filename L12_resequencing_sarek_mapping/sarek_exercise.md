@@ -249,6 +249,9 @@ To terminate a screen window session
 “ctrl-a” and “k” without quotes
 
 
+zcat joint_germline_recalibrated_snpEff.ann.vcf.gz | grep HIGH | perl -nae 'if($F[10]=~/0\/0/){print $_;}'
+
+
 
 
 
