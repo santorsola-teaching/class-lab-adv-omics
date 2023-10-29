@@ -221,10 +221,6 @@ gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_01/sampl
 gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
 ```     
 
-gs://unipv-bioinf-student-msantorsola-data-main/results/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
-
-zcat joint_germline_recalibrated_snpEff.ann.vcf.gz | grep HIGH | perl -nae 'if($F[10]=~/0\/0/){print $_;}'
-
 
 ## Check the running workflow
 
