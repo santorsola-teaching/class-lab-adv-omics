@@ -75,6 +75,7 @@ patient_02,sample_02,lane1,datasets_LABOS-2023/germline/reads/control_1.fastq.gz
 
 ## Prepare your config file
 
+
 ``` 
 vi nextflow_with_params-file.config
 ```
@@ -89,14 +90,18 @@ Remember to configure the following parameters with your personal credentials:
 - workDir
 - google.project
 
+
+Here's a bit of guidance to assist you with your configuration file
+
+
 ``` 
 profiles {
     gls {
         process.executor = 'google-batch'
-        workDir = 'gs://unipv-bioinf-student-msantorsola-data-main/work'
+        workDir = 'workdir-in-your-bucket'
         google.location = 'europe-west4'
         google.region  = 'europe-west4'
-        google.project = 'unipv-bioinf-student-msantorsola-data-main'
+        google.project = 'YOUR-PROJECT-NAME'
         google.lifeSciences.usePrivateAddress = 'true'
         google.batch.spot = true
         fusion.enabled = true
@@ -176,37 +181,7 @@ Run the Sarek pipeline using the command line you composed in the previous step.
 
 
 
-```
-{
-    "input": "datasets_LABOS-2023\/germline\/reads\/sarek_samplesheet.csv",
-    "outdir": "gs:\/\/unipv-bioinf-student-msantorsola-data-main\/results",
-    "tools": "haplotypecaller,snpeff",
-    "skip_tools": "haplotypecaller_filter",
-    "joint_germline": true,
-    "use_annotation_cache_keys": true,
-    "genome": "GRCh38chr21",
-    "bwa": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/sequence\/Homo_sapiens_assembly38_chr21.fasta.{amb,ann,bwt,pac,sa}",
-    "dbsnp": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/dbsnp_146.hg38_chr21.vcf.gz",
-    "dbsnp_tbi": "/\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/dbsnp_146.hg38_chr21.vcf.gz.tbi",
-    "dbsnp_vqsr": "--resource:dbsnp,known=false,training=true,truth=false,prior=2.0 dbsnp_146.hg38_chr21.vcf.gz",
-    "dict": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/sequence\/Homo_sapiens_assembly38_chr21.dict",
-    "fasta": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/sequence\/Homo_sapiens_assembly38_chr21.fasta",
-    "fasta_fai": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/sequence\/Homo_sapiens_assembly38_chr21.fasta.fai",
-    "germline_resource": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only_chr21.vcf.gz",
-    "germline_resource_tbi": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/gnomAD.r2.1.1.GRCh38.PASS.AC.AF.only_chr21.vcf.gz.tbi",
-    "known_indels": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz",
-    "known_indels_tbi": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz.tbi",
-    "known_indels_vqsr": "--resource:mills,known=false,training=true,truth=true,prior=10.0 Mills_and_1000G_gold_standard.indels.hg38_chr21.vcf.gz",
-    "known_snps": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/1000G_phase1.snps.high_confidence.hg38_chr21.vcf.gz",
-    "known_snps_tbi": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs\/annotations\/1000G_phase1.snps.high_confidence.hg38_chr21.vcf.gz.tbi",
-    "known_snps_vqsr": "--resource:1000G,known=false,training=true,truth=true,prior=10.0 1000G_phase1.snps.high_confidence.hg38_chr21.vcf.gz",
-    "snpeff_db": "105",
-    "snpeff_genome": "GRCh38",
-   "igenomes_base": "\/home\/prof_mariangela_santorsola\/datasets_LABOS-2023\/refs",
-    "igenomes_ignore": true,
-    "intervals": "datasets_LABOS-2023\/germline\/chr21_intervals.list"
-}
-```
+
 
 
 
