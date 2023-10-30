@@ -1,4 +1,4 @@
-# Class Assignment: run nf-core/sarek with -params-file option
+# Class Assignment: run nf-core/sarek _joint germline calling_ with -params-file option
 
 ## Objective
 The primary goal of this assignment is to gain practical experience in using the nf-core/sarek pipeline by analyzing parameter configurations and executing the pipeline. This assignment will help students understand how to set up nf-core/sarek for genomic analysis and appreciate the significance of parameter configurations.
@@ -166,6 +166,16 @@ Compare the parameters you identified in your old command line and config file w
 #### Generate a JSON Configuration File
 Create a JSON configuration file that includes the parameters you intend to use for your sarek analysis. Make sure to specify the paths to references and external resources databases. 
 
+```
+{
+    "input":
+    
+    [...]
+
+}
+```
+
+
 #### Compose the Command Line for Sarek
 Based on the parameters you've defined in the JSON configuration file, create the command line to execute sarek. 
 
@@ -175,6 +185,13 @@ Make sure to include the path to your
 
 and to provide the profile (_gls_) you are using.
 
+
+```
+nextflow run nf-core/sarek -r 3.3.2 \
+-params-file [...] \
+-c  [...] \
+-profile [...]
+```
 
 #### Execute Sarek
 Run the Sarek pipeline using the command line you composed in the previous step. Monitor the progress and make sure that the pipeline runs without errors.
