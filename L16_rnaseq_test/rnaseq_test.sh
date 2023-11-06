@@ -1,4 +1,7 @@
 nextflow run nf-core/rnaseq \
 -profile test,gls \
---outdir results-in-your-bucket \
--c google.config
+--outdir resultdir-in-your-bucket \
+-c google.config \
+-work-dir workdir-in-your-bucket
+
+
