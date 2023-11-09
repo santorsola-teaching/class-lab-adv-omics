@@ -168,12 +168,10 @@ Succeeded   : 33_
 ### Read results
 
 
-In the ```results``` directory in your bucket, you should see now:
-- a single VCF file from joint variant calling
-- one VCF file for sample_01
-- one VCF file for sample_02
+In the ```results``` directory in your bucket, you should see now the salmon directory
 
-To copy you VCF files, you can type on your cloud shell:
+
+To check file content you can copy a file using your cloud shell:
 ```
 
 gsutil cp gs://results-in-your-bucket/salmon/salmon.merged.gene_counts.tsv .
