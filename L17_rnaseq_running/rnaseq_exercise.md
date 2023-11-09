@@ -157,10 +157,10 @@ nextflow run nf-core/rnaseq -r 3.12.0 \
 ```
 
 
-_-[nf-core/rnaseq] Pipeline completed successfully -
-Completed at: 09-Nov-2023 09:32:19
-Duration    : 32m 48s
-CPU hours   : 0.2
+_-[nf-core/rnaseq] Pipeline completed successfully - 
+Completed at: 09-Nov-2023 09:32:19 
+Duration    : 32m 48s 
+CPU hours   : 0.2 
 Succeeded   : 33_
 
 
@@ -175,10 +175,9 @@ In the ```results``` directory in your bucket, you should see now:
 
 To copy you VCF files, you can type on your cloud shell:
 ```
-gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
-
 
 gsutil cp gs://results-in-your-bucket/salmon/salmon.merged.gene_counts.tsv .
+
 ```     
 
 
