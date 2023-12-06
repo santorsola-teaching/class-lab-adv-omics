@@ -1,0 +1,14 @@
+nextflow run nf-core/rnaseq -r 3.12.0 \
+--input  datasets_lesson33/rnaseq/reads/rnaseq_samplesheet.csv \
+--outdir results-in-you-bucket \
+--genome GRCh38chr21 \
+--pseudo_aligner salmon \
+--skip_alignment \
+--skip_biotype_qc \
+-c rnaseq_nextflow.config \
+-profile gls \
+--skip_stringtie \
+--skip_bigwig \
+--skip_umi_extract \
+--skip_trimming \
+--skip_fastqc
