@@ -9,6 +9,11 @@ The goal of this assignment is to explore omics datasets, including re-sequencin
 
 Additionally, the potential impact of found mutations on the protein structure and function will be explored by mining the AlphaMissense resource.
 
+## Datasets:
+
+- Re-sequencing and RNAseq: ```https://github.com/santorsola-teaching/datasets_lesson33```
+- Updated references: ```https://github.com/lescai-teaching/datasets_reference_only.git```
+
 
 ## Tasks:
 
