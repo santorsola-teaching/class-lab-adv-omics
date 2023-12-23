@@ -1,4 +1,4 @@
-# Assignment: From mutation to protein structure
+# Assignment: From mutations to proteins workflow
 
 This assignment is designed to enhance student skills in bioinformatics analysis, integrating genomic and transcriptomic data to gain insights into genetic variations and their potential functional impacts. 
 
