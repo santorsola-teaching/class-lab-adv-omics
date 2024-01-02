@@ -49,7 +49,6 @@ echo $GOOGLE_APPLICATION_CREDENTIALS
 
 ## Download the datasets and the reference data
 
-### AGGIUNGERE NUOVO DATASET!!!!
 ```{bash}
 git clone https://github.com/santorsola-teaching/datasets_LABOS-2023.git
 ```
@@ -61,12 +60,12 @@ File available in ```datasets_LABOS-2023/rnaseq/reads/rnaseq_samplesheet.csv```.
 
 ```
 sample,fastq_1,fastq_2,strandedness
-control_rep1,data/reads/sample_01_1.fastq.gz,data/reads/sample_01_2.fastq.gz,auto
-control_rep2,data/reads/sample_02_1.fastq.gz,data/reads/sample_02_2.fastq.gz,auto
-control_rep3,data/reads/sample_03_1.fastq.gz,data/reads/sample_03_2.fastq.gz,auto
-treatment_rep1,data/reads/sample_04_1.fastq.gz,data/reads/sample_04_2.fastq.gz,auto
-treatment_rep2,data/reads/sample_05_1.fastq.gz,data/reads/sample_05_2.fastq.gz,auto
-treatment_rep3,data/reads/sample_06_1.fastq.gz,data/reads/sample_06_2.fastq.gz,auto
+control_rep1,datasets_LABOS-2023/rnaseq/new_reads/sample_01_1.fastq.gz,datasets_LABOS-2023/rnaseq/new_reads/sample_01_2.fastq.gz,auto
+control_rep2,datasets_LABOS-2023/rnaseq/new_reads/sample_02_1.fastq.gz,datasets_LABOS-2023/rnaseq/new_reads/sample_02_2.fastq.gz,auto
+control_rep3,datasets_LABOS-2023/rnaseq/new_reads/sample_03_1.fastq.gz,datasets_LABOS-2023/rnaseq/new_reads/sample_03_2.fastq.gz,auto
+treatment_rep1,datasets_LABOS-2023/rnaseq/new_reads/sample_04_1.fastq.gz,datasets_LABOS-2023/rnaseq/new_reads/sample_04_2.fastq.gz,auto
+treatment_rep2,datasets_LABOS-2023/rnaseq/new_reads/sample_05_1.fastq.gz,datasets_LABOS-2023/rnaseq/new_reads/sample_05_2.fastq.gz,auto
+treatment_rep3,datasets_LABOS-2023/rnaseq/new_reads/sample_06_1.fastq.gz,datasets_LABOS-2023/rnaseq/new_reads/sample_06_2.fastq.gz,auto
 ```
 
 
@@ -89,10 +88,10 @@ Remember to configure the following parameters with your personal credentials:
 profiles {
     gls {
         process.executor = 'google-batch'
-        workDir = 'gs://mbg-bioinfomics-ms-data/work'
+        workDir = 'wordir-in-your-bucket'
         google.location = 'europe-west4'
         google.region  = 'europe-west4'
-        google.project = 'c510329-adv-bioinf-omics'
+        google.project = 'YOUR-PROJECT_NAME'
         google.lifeSciences.usePrivateAddress = 'true'
         fusion.enabled = true
         wave.enabled = true
@@ -103,7 +102,14 @@ process {
     withName: 'FQ_SUBSAMPLE' {
         ext.args   = '-p 0.7 --seed 1'
 
+     }
+
+    withName: '.*:QUANTIFY_SALMON:SALMON_QUANT' {
+        ext.args   = '--libType UI --validateMappings'
+
+    
     }
+
 
   errorStrategy = { task.exitStatus in [1,143,137,104,134,139,255,108] ? 'retry' : 'finish' }
   maxRetries = 4
@@ -142,19 +148,21 @@ cd /home/YOUR-USER-NAME/
 screen 
 
 nextflow run nf-core/rnaseq -r 3.12.0 \
---input  data/reads/rnaseq_samplesheet.csv \
---outdir gs://mbg-bioinfomics-ms-data/newresults \
+--input  datasets_LABOS-2023/rnaseq/new_reads/rnaseq_samplesheet.csv \
+--outdir results-in-your-bucket \
 --genome GRCh38chr21 \
 --pseudo_aligner salmon \
 --skip_alignment \
 --skip_biotype_qc \
--c nextflow.config \
+-c nextflow2.config \
 -profile gls \
 --skip_stringtie \
 --skip_bigwig \
 --skip_umi_extract \
 --skip_trimming \
---skip_fastqc
+--skip_fastqc 
+
+
 ```
 
 
@@ -165,18 +173,6 @@ CPU hours   : 0.2
 Succeeded   : 33_   
 
 
-### Read results
-
-
-In the ```results``` directory in your bucket, you should see now the salmon directory
-
-
-To check file content you can copy a file using your cloud shell:
-```
-
-gsutil cp gs://results-in-your-bucket/salmon/salmon.merged.gene_counts.tsv .
-
-```     
 
 
 ## Check the running workflow
@@ -204,12 +200,6 @@ To show the screen parameters, you can type:
 
 To terminate a screen window session
 “ctrl-a” and “k” without quotes
-
-
-
-
-###ERRORS/WARNS
-WARN: Cannot read logs for Batch job 'nf-0382fc87-170012-18f1db27-c00c-49090' - cause: io.grpc.StatusRuntimeException: PERMISSION_DENIED: Permission denied for all resources
 
 
 
