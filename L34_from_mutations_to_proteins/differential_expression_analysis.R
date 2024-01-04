@@ -59,6 +59,8 @@ res <- results(dds)
 head(results(dds, tidy=TRUE)) #let's look at the results table 
 
 summary(res)
+
+
 ### Top Genes by padj
 resOrdered <- res[order(res$padj),]
 
@@ -148,4 +150,36 @@ dev.off()
 pdf("plots_network-ego.pdf")
 cnetplot(ego, foldChange=resdata$log2FoldChange[which(resdata$padj<0.5)])
 dev.off()
+
+
+
+#### IMPORTANT!!
+#If summary(res) return 0% of de-regulated genes, 
+#please use the ```dds``` object from nf-core/rnaseq output ```deseq2.dds.RData```,
+#and run the following code to get the differential expressed genes:
+
+library(DESeq2)
+library(tximport)
+library(tidyverse)
+library(pheatmap)
+library(clusterProfiler)
+library(DOSE)
+library(org.Hs.eg.db)
+
+
+load("deseq2.dds.RData")
+
+#define conditions, e.g. treatment and control
+colData(dds)$Group1 <- as.factor(colData(dds)$Group1)
+
+#define the design of comparison, treatments vs controls
+design(dds) <- as.formula("~Group1")
+
+#get Differentially Expressed genes
+dds <- DESeq(dds)
+
+res <- results(dds)
+summary(res)
+
+
 
