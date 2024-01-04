@@ -1,0 +1,11 @@
+{
+    "salmon_version": "1.10.1",
+    "geneMap": "gencode.v29.annotation_chr21_noversion.gtf",
+    "threads": "2",
+    "libType": "IU",
+    "index": "salmon",
+    "mates1": "sample_05_1.fastq.gz",
+    "mates2": "sample_05_2.fastq.gz",
+    "output": "treatment_rep2",
+    "auxDir": "aux_info"
+}
