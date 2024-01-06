@@ -2,17 +2,17 @@
 
 ### Add container
 - Container 
--   Deploy container
-- 	  Configure container
--       Container image    
+-  Deploy container
+- 	Configure container
+-    Container image    
 -        ```ghcr.io/lescai-teaching/rstudio-docker-amd64:latest```     
 
 available at  https://github.com/lescai-teaching/rstudio-docker/pkgs/container/rstudio-docker-amd64.   
    
 
 - Environment variables
--     +ADD VARIABLE
--       ```DISABLE_AUTH``` = ```"true"```
+-   +ADD VARIABLE
+-   ```DISABLE_AUTH``` = ```"true"```
 
 
 
