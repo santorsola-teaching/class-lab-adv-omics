@@ -12,7 +12,7 @@ available at  https://github.com/lescai-teaching/rstudio-docker/pkgs/container/r
 
 - Environment variables
 -   +ADD VARIABLE
--   ```DISABLE_AUTH``` = ```"true"```
+- ```DISABLE_AUTH``` = ```"true"```
 
 
 
@@ -21,7 +21,7 @@ available at  https://github.com/lescai-teaching/rstudio-docker/pkgs/container/r
 - Operating System   
 -   "cos-101-17162-336-20"    
 - Size    
--      ```100GB```   
+- ```100GB```   
 
 
 
@@ -29,7 +29,7 @@ available at  https://github.com/lescai-teaching/rstudio-docker/pkgs/container/r
 
 #### Networking  
 - Tag name      
-- 		```rstudio```
+- ```rstudio```
 
 and press enter.
 
@@ -70,16 +70,16 @@ localhost:12000
 ### CREATE FIREWALL RULE
 
 - NAME   
-- 		```rstudio-port```  
+- ```rstudio-port```  
  
 - Action on match
-- 	Targets    
-- 		```rstudio```    
+- Targets    
+- ```rstudio```    
 
 
 - Protocols and ports    
--  	TCP    
--   	```8787```
+- TCP    
+- ```8787```
 
 - CREATE
 
