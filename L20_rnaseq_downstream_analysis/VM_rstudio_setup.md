@@ -3,9 +3,8 @@
 ### Add container
 - Container 
 -  Deploy container
-- 	Configure container
--    Container image    
--        ```ghcr.io/lescai-teaching/rstudio-docker-amd64:latest```     
+-  Configure container
+- Container image = ````ghcr.io/lescai-teaching/rstudio-docker-amd64:latest```     
 
 available at  https://github.com/lescai-teaching/rstudio-docker/pkgs/container/rstudio-docker-amd64.   
    
@@ -18,18 +17,15 @@ available at  https://github.com/lescai-teaching/rstudio-docker/pkgs/container/r
 
 ### Boot Disk
 
-- Operating System   
--   "cos-101-17162-336-20"    
-- Size    
-- ```100GB```   
+- Operating System = ```cos-101-17162-336-20```    
+- Size = ```100GB```   
 
 
 
 ### Advanced Options
 
 #### Networking  
-- Tag name      
-- ```rstudio```
+- Tag name = ```rstudio```
 
 and press enter.
 
@@ -46,7 +42,8 @@ or
 
 you can use gcloud tool:
 
-```gcloud compute ssh YOUR-VM-NAME \
+```
+gcloud compute ssh YOUR-VM-NAME \
     --project=YOUR-PROJECT-NAME \
     --zone=europe-west4-a \
     -- -NL localport:localhost:remoteport
@@ -69,22 +66,19 @@ localhost:12000
 
 ### CREATE FIREWALL RULE
 
-- NAME   
-- ```rstudio-port```  
+- NAME = ```rstudio-port```  
  
 - Action on match
-- Targets    
-- ```rstudio```    
+- Targets = ```rstudio```    
 
 
 - Protocols and ports    
-- TCP    
-- ```8787```
+- TCP =  ```8787```
 
 - CREATE
 
 
 
-###### Assignment class 20 #######
+#### Assignment class 20 ####
 Download input data from https://github.com/santorsola-teaching/class-lab-adv-omics-2023/blob/main/L17_rnaseq_running/results.zip and upload to RStudio server.
 
