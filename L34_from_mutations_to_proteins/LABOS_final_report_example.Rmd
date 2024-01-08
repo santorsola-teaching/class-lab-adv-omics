@@ -6,13 +6,11 @@ output:
  html_document:
    toc: true
 params:
-    dds: rnaseq/deseq2.dds.RData
-    vcf: resequencing/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf
+    dds: PATH/TO/deseq2.dds.RData
+    vcf:  PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
+    
 ---
 
-
-# Result summary
-The variant _<chr:start:ref:alt>_ has been prioritized...
 
 # RNAseq data analysis
 
@@ -42,9 +40,7 @@ data %>%
 
 ### Read alignment and Quantification
 
-- The reads from FASTQ files were processed by ..., using the Human Reference Genome ...
-
-- The nf-core/rnaseq pipeline was lauched by the following command line:
+[...]
 
 ```{bash, eval=FALSE, echo=TRUE, include=TRUE}
 nextflow run nf-core/rnaseq -r 3.12.0 \
@@ -68,12 +64,9 @@ nextflow run nf-core/rnaseq -r 3.12.0 \
 
 ## Differential Expression Analysis
 
-- The ### R package was used to perform the Differential Expression (DE) analysis, and identify the list of de-regulated genes when comparing **treaments vs controls**.
-
-- The *gene-level* quantifications from nf-core/rnaseq were directly used to perform the DE analysis by DESeq2:
+[...]
 
 ```{r differential_analysis, eval=TRUE, echo=TRUE, include=TRUE}
-
 load(params$dds)
 
 #define conditions, e.g. treatment and control
@@ -120,33 +113,21 @@ significant_de_genes <- sign_de_genes_table$Gene
 
 ## Experimental design
 
-The re-sequencing dataset includes one control sample and one case sample.
-
-```{r reseq_data_input, eval=TRUE, echo=FALSE, include=TRUE}
-groups <- c("control", "case")
-samples <-c("normal_1.000+disease_0.000", "normal_0.000+disease_1.000")
-data <- tibble(Group = groups, Sample = samples) 
-data %>% 
-    knitr::kable()
-```
+[...]
 
 ## Data Processing
 
 ### Variant calling and annotation
 
--   The reads from FASTQ files were alygned by ..., using the Human Reference Genome ...
+[...]
 
--   ### was used to perform the variant calling.
--   ...
-
-The following code was used to filter and prioritise the variantions, based on the annotations ...:
 
 ```{r variant_settings, echo=FALSE, include=FALSE}
 library(knitr)
 library(VariantAnnotation)
 library(tidyverse)
 library(reticulate)
-source("../extract_annotations.R")
+source("extract_annotations_full.R")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
@@ -187,7 +168,7 @@ variants$impact <- unlist(lapply(info(vcf)$ANN, get_most_severe_impact))
 
 ### Localization and biological consequences of identified mutations
 
-You can show the biological consequences of identified mutations by a plot
+[...]
 
 ```{r consequences, eval=TRUE, echo=FALSE, include=TRUE, fig.cap="Distribution of the percentage of identified mutations across biological consequence categories"}
 variants %>%
@@ -221,9 +202,7 @@ variants %>%
 
 ### Filtering Criteria
 
-To filter the most clinically relevant mutations, the following process was followed:
-
-1.  ...
+[...]
 
 
 The following *r* and *bash* code block are equivalent, as they output the filtered variants based on the defined criteria:
@@ -238,10 +217,11 @@ filteredVars = variants %>%
 filteredVars <- as_tibble(filteredVars)
 ```
 
+or equivalent code in bash
+
 ```{bash, eval=FALSE}
 zcat <vcf.gz> | perl -nae 'if($F[10]=~/0\/0/){print $_;}' | grep 'HIGH\|MODERATE' | grep 'GENE1\|GENE2\|GENE3\|GENE4' | grep missense > mutations_to_check_in_alphamissense.txt
 ```
-
 
 
 ### Filtered mutations for further validation assays
@@ -281,7 +261,7 @@ data %>%
 
 ## Results: Prioritized variant(s)
 
-You can add more information about the prioritized variant(s), such as clinvar significance, variant allele frequency from gnomAD database, ... 
+You can add more information about the prioritized variant(s), such as clinvar significance, variant allele frequency from gnomAD database, and all external tool and resources seen in the course... 
 
 
 ```{r prioritized_variants, eval=TRUE, echo=FALSE, include=TRUE}
