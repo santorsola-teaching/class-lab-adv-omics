@@ -161,6 +161,7 @@ abline(h=c(-1,1), col="dodgerblue", lwd=2)
 
 ```{r significant_genes_table, eval=TRUE, echo=FALSE, include=TRUE}
 resOrdered <- res[order(res$padj),]
+resOrdered <- na.omit(resOrdered) ### omit "NA" values <---- 
 resOrdered$Gene <- rownames(resOrdered)
 sign_de_genes_table <- as_tibble(resOrdered[resOrdered$padj < 0.1,])
 sign_de_genes_table %>% 
