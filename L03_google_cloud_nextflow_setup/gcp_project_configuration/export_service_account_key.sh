@@ -1,7 +1,11 @@
+#!/bin/sh
+
+# Usage: sh export_service_account_key.sh <your-project-name> 
+
 ### DEFINE YOUR ENVIRONMENT #########
 
-PROJECT_ID= ###name your project
-BUCKET_NAME= ###name your bucket - must be unique in all google region
+PROJECT_ID=$1 ###name your project 
+BUCKET_NAME=unipv-${PROJECT_ID#mbg-}-data-main ###name your bucket
 
 
 #############################
@@ -24,8 +28,4 @@ gcloud iam service-accounts keys create \
   --key-file-type=json ${SERVICE_ACCOUNT_KEY}
 
 
-## this must be executed in the same place where nextflow master process is run
-
-export SERVICE_ACCOUNT_KEY_FILE=\${PWD}/${SERVICE_ACCOUNT_KEY}
-export GOOGLE_APPLICATION_CREDENTIALS=\${PWD}/${SERVICE_ACCOUNT_KEY}
 
