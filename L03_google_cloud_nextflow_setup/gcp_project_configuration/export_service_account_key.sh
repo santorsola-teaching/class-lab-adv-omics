@@ -28,4 +28,7 @@ gcloud iam service-accounts keys create \
   --key-file-type=json ${SERVICE_ACCOUNT_KEY}
 
 
+### IMPORTANT:
 
+# After creating your JSON key, you need to download it to your laptop and store it securely. 
+# This key is essential for authentication and must be used each time you access a virtual machine within your project.
