@@ -35,7 +35,7 @@ curl https://get.nextflow.io | bash
 cd ..
 
 # set the `PATH` environment variable
-export PATH=${PATH}:${PWD}
+export PATH=${PATH}:${PWD}/nfbin/
 #e.g. export PATH=${PATH}:/home/<YOUR_HOME_FOLDER>/nfbin/
 
 ### the following assumes the credentials have been previously saved
