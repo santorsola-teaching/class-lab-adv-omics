@@ -1,4 +1,6 @@
-# nf-core/sarek - resequencing data analysis
+# nf-core/sarek - joint variant calling
+
+
 
 ## Set your working place
 
@@ -29,9 +31,10 @@ echo $GOOGLE_APPLICATION_CREDENTIALS
 ```
 
 
+
 ## Download the reference data
 
-On VM SSH terminal type:
+On your VM SSH terminal, type:
 
 ```{bash}
 git clone https://github.com/lescai-teaching/datasets_reference_only.git
@@ -40,11 +43,13 @@ git clone https://github.com/lescai-teaching/datasets_reference_only.git
 to download the customized Human reference files related to chromosome 21.
 
 
+
 ## Download the resequencing data
 
 ```{bash}
 git clone https://github.com/santorsola-teaching/datasets_LABOS_exercise1.git
 ```
+
 
 
 ### Check the INPUT samplesheet 
@@ -61,9 +66,10 @@ case,case1,lane1,datasets_LABOS_exercise1/germline/reads/normal_0.000+disease_1.
 Remember: Each sample should be listed in a single row of the input samplesheet.
 
 
+
 ## Prepare your config file
 
-See [here]() for instructions related to the nextflow config file to run sarek.
+See [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_nextflow.config) for instructions related to the nextflow config file to run sarek.
 
 
 Required information:
@@ -74,60 +80,10 @@ Required information:
 _When using vim to edit files on terminal, Make sure to click "i" for INSERT mode, before to paste the code_
 
 
+
 ## Launch nf-core/sarek: joint variant calling
-```
 
-See the command line to run the sarek [here]()
-
-
-
-### Check results
-
-
-In the ```results``` directory in your bucket, you should see now:
-- a single VCF file from joint variant calling
-
-To copy you VCF files, you can type on your cloud shell:
-```
-gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
-
-or
-
-
-gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_01/sample_01.haplotypecaller_snpEff.ann.vcf.gz .
-
-gsutil cp gs://results-in-your-bucket/annotation/haplotypecaller/sample_02/sample_02.haplotypecaller_snpEff.ann.vcf.gz .
-```     
-
-
-## Check the running workflow
-
-Find the session ID list of the current running screen sessions with:
-
-```
-screen -ls
-```
-
-You can re-attach the terminal session with:
-```
-screen -r
-```
-
-In case you have multiple screen sessions running on your VM instance, you will need to append the screen session ID after "-r".
-
-
-To detach the terminal session type:
-“Ctrl-A” and “d“
-
-To show the screen parameters, you can type:
-“Ctrl-A” and “?” without quotes.
-
-
-To terminate a screen window session
-“ctrl-a” and “k” without quotes
-
-
-
+See the command line to run the sarek [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_run.sh)
 
 
 
