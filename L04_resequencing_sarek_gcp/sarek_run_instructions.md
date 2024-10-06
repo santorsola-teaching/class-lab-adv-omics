@@ -69,12 +69,13 @@ Remember: Each sample should be listed in a single row of the input samplesheet.
 
 ## Prepare your config file
 
-See [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_nextflow.config) for instructions related to the nextflow config file to run sarek.
 
+For detailed instructions on the Nextflow config file to run Sarek, see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_nextflow.config).
 
-Required information:
+Required Information:
+- google.project = 'YOUR-PROJECT-NAME'
 
-- your projectID = mbg-bioinf-student-<surname>
+Make sure to replace 'YOUR-PROJECT-NAME' with the appropriate project name for your setup.
 
 
 _When using vim to edit files on terminal, Make sure to click "i" for INSERT mode, before to paste the code_
@@ -83,7 +84,14 @@ _When using vim to edit files on terminal, Make sure to click "i" for INSERT mod
 
 ## Launch nf-core/sarek: joint variant calling
 
-See the command line to run the sarek [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_run.sh)
+For detailed instructions on the Nextflow config file to run Sarek, see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_run.sh)
+
+
+Required Replacements:
+- Replace --outdir 'outdir-in-your-bucket' with the path to your desired output directory in your GCP bucket.
+- Replace -work-dir 'workdir-in-your-bucket' with the path to your working directory in your GCP bucket.
+
+Make sure to adjust these paths according to your project setup before running the command.
 
 
 
