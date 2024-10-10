@@ -1,0 +1,142 @@
+---
+title: "Omics Data Analysis Report: datasets_LABOS2024_exercise1"
+author: "Mariangela Santorsola"
+date: "10/10/2024"
+output:
+ html_document:
+   toc: true
+params:
+    vcf:  ex1_joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  extract_annotations_full.R
+---
+### Variant calling and annotation
+```{r variant_settings, echo=FALSE, include=FALSE}
+library(knitr)
+library(VariantAnnotation)
+library(tidyverse)
+source(params$ext_funcs)
+```
+
+Read vcf file from nf-core/sarek:
+```{r import_VCF, eval=TRUE, echo=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+vcf <- readVcf(params$vcf)
+```
+```{r rowRanges, eval=TRUE, echo=FALSE, include=FALSE}
+head(rowRanges(vcf))
+```
+```{r infoSection, eval=TRUE, echo=FALSE, include=FALSE}
+head(info(vcf))
+```
+```{r genoSection, eval=TRUE, echo=FALSE, include=FALSE}
+head(geno(vcf)$GT)
+```
+
+
+Create the table of annotations by the INFO field within the VCF file:
+
+```{r simplifyVCF, message=FALSE, warning=FALSE}
+variants <- rowRanges(vcf)
+variants$`REF` <- as.character(variants$`REF`)
+variants$ALT <- sapply(variants$ALT, function(x) as.character(x)[1])
+variants <- as_tibble(variants)
+variants$variantName = names(rowRanges(vcf))
+variants = cbind(variants, as_tibble(geno(vcf)$GT))
+names(variants)[names(variants) == "patient_01_sample_01"] <- "case_case1"
+names(variants)[names(variants) == "patient_02_sample_02"] <- "control_control1"
+variants$gene <- unlist(lapply(info(vcf)$ANN, get_most_severe_gene))
+variants$ens <- unlist(lapply(info(vcf)$ANN, get_most_severe_ens))
+variants$transcript <- unlist(lapply(info(vcf)$ANN, get_most_severe_tr))
+variants$aa_change <- unlist(lapply(info(vcf)$ANN, get_most_severe_aa_change))
+variants$consequence <- unlist(lapply(info(vcf)$ANN, get_most_severe_consequence))
+variants$impact <- unlist(lapply(info(vcf)$ANN, get_most_severe_impact))
+```
+
+### Localization and biological consequences of identified mutations
+
+
+```{r consequences, eval=TRUE, echo=FALSE, include=TRUE, fig.cap="Distribution of the percentage of identified mutations across biological consequence categories"}
+variants %>%
+  filter(!is.na(consequence)) %>%
+  count(consequence) %>%
+  mutate(count = n,
+         percent = paste0(round(count/sum(count) * 100, digits = 2), "%"))%>%
+  arrange(desc(count)) %>%
+  mutate(lab.ypos = cumsum(count) - 0.5 * count) %>%
+  ggplot(aes(x="", y=count, fill=consequence))+
+  geom_bar(width = 1, stat = "identity")+
+  coord_polar(theta = "y")+
+  ggrepel::geom_text_repel(aes(y=lab.ypos, label=percent), max.overlaps = Inf)+
+  theme_void()
+```
+ 
+ or you can use a table format:
+ 
+```{r consequences_table, eval=TRUE, echo=FALSE, include=TRUE}
+variants %>%
+  filter(!is.na(consequence)) %>%
+  group_by(consequence) %>%
+  summarise(count=n()) %>%
+  arrange(desc(count)) %>%
+  kable()
+```
+
+
+## Variant Filtering
+### Filtering Criteria
+
+The following *r* code block outputs the filtered variants based on the defined criteria:
+
+```{r filterVariants, eval=TRUE, echo=TRUE, include=TRUE}
+filteredVars = variants %>%
+  filter(control_control1 == "0/0" & 
+            (impact == "MODERATE" | impact == "HIGH") &
+            # ens %in% significant_de_genes & 
+            consequence == "missense_variant") 
+filteredVars <- as_tibble(filteredVars)
+```
+
+### Filtered mutations for further validation assays
+
+```{r filtered_vars_table, eval=TRUE, echo=FALSE, include=TRUE}
+selectedVars <- filteredVars %>%
+  dplyr::select(seqnames, start, REF, ALT, gene, consequence, aa_change) 
+selectedVars_table <- selectedVars 
+selectedVars_table %>% knitr::kable()
+
+```
+
+
+```{r create_table_for_VEP, eval=TRUE, echo=TRUE, include=TRUE}
+# create table for VEP
+VEP.tab <- filteredVars %>%
+  dplyr::select(seqnames, start, REF, ALT) %>%
+  mutate(ID = ".",  .after = start) %>%
+  mutate(seqnames = substr(seqnames, 4, nchar(.))) # all are from chromosome 21 and VEP does not accept "chr"
+  
+write.table(VEP.tab, "table_to_VEP.txt", col.names = F, row.names = F, quote = FALSE)
+```
+
+Copy the content of the table just written in your home directory "table_to_VEP.txt" and paste in [VEP](https://www.ensembl.org/Homo_sapiens/Tools/VEP). Run and save results obtained as "TXT". Upload those results in the home like you did for the vcf file.
+
+### Alphamissense Pathogenicity Predictions of filtered variants
+After the VEP annotation, you need to search the genes and related protein variants using the Alphamissense portal, you know from the related class.
+
+```{r alphamissense, eval=TRUE, echo=FALSE, include=TRUE}
+VEP.res <- read.table("iT2vOcGKMbnalzUw.txt", header = T, sep ='\t',comment.char = "") # the file name is randomly chosen when you download it from VEP
+
+```
+
+
+```{r alphamissense_filtering, eval=TRUE, echo=TRUE, include=TRUE}
+selectedVars_table <- VEP.res %>% filter(am_class %in% c("ambiguous", "likely_pathogenic")) 
+selectedVars_table %>% 
+  select(Location, Consequence, SYMBOL, SIFT, PolyPhen, am_class, am_pathogenicity, LOEUF) %>% 
+  knitr::kable()
+
+
+```
+
+```{r save_filtered_VEP_results, eval=TRUE, echo=TRUE, include=TRUE}
+# write.table(selectedVars_table, "VEP_filtered_results_ex1_test.txt", row.names = F, quote = FALSE)
+```
+
