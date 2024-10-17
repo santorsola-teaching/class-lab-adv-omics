@@ -84,7 +84,7 @@ _When using vim to edit files on terminal, Make sure to click "i" for INSERT mod
 
 ## Launch nf-core/sarek: joint variant calling
 
-For detailed instructions on the Nextflow config file to run Sarek, see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_run.sh)
+For detailed command-line instructions to run Sarek, refer to see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L04_resequencing_sarek_gcp/sarek_run/sarek_run.sh)
 
 
 Required Replacements:
