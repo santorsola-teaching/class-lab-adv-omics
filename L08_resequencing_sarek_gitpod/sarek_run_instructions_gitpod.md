@@ -110,3 +110,7 @@ This command will keep the gitpod session active for exactly 2 hours, providing 
 
 you can use the Rmd code template available [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L05_reseq_prior_reporting/reporting_template/report_sarek_test_gcp.Rmd) to get the HTML final report. 
 
+
+Note: the additional code to carry out the analyses is available [here](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L05_reseq_prior_reporting/code)
+
+
