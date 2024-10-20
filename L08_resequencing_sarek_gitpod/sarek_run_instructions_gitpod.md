@@ -79,7 +79,7 @@ Required Replacements:
 - Replace ```-work-dir 'workdir'``` with the path to your working directory in the gitpod home (```/workspace/gitpod/workfolder```).
 
 
-# Downstram analyses
+# Downstream analyses
 
 ## Launching the RStudio environment
 
