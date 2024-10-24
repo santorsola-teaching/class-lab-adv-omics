@@ -1,1 +1,0 @@
-zcat <vcf.gz> | perl -nae 'if($F[10]=~/0\/0/){print $_;}' | grep 'HIGH\|MODERATE' | grep 'GENE1\|GENE2\|GENE3\|GENE4' | grep missense > mutations_to_check_in_alphamissense.txt
