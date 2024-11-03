@@ -1,7 +1,7 @@
 screen
 
 nextflow run nf-core/rnaseq -r 3.16.1 \
---input  datasets_LABOS_exercise4/rnaseq/reads/rnaseq_samplesheet.csv \
+--input  datasets_LABOS_exercise1/rnaseq/reads/rnaseq_samplesheet.csv \
 --outdir 'outdir-in-your-bucket' \
 -work-dir 'workdir-in-your-bucket' \
 --genome GRCh38chr21 \
