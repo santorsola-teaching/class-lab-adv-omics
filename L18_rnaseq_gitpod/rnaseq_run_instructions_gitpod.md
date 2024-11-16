@@ -1,4 +1,4 @@
-# nf-core/rnaseq - Differential Gene Expression Analysis
+# nf-core/rnaseq - read quantification
 
 
 
@@ -123,6 +123,6 @@ This command will keep the gitpod session active for exactly 2 hours, providing 
 You can use the Rmd code template available [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L17_rnaseq_DEA_reporting/reporting_template/report_DEA_gcp.Rmd) to get the HTML final report. 
 
 
-Note: the additional file to carry out the analyses is available [here](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt)
+Note: the additional file to carry out the analyses is available [here](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
 
 
