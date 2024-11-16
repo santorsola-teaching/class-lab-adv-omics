@@ -74,7 +74,7 @@ Remember: Each sample should be listed in a single row of the input samplesheet.
 ## Prepare your config file
 
 
-For detailed instructions on the Nextflow config file to run Sarek, see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L12_rnaseq_gcp/rnaseq_run/rnaseq_nextflow.config).
+For detailed instructions on the Nextflow config file to run rnaseq, see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L12_rnaseq_gcp/rnaseq_run/rnaseq_nextflow.config).
 
 Required Information:
 - google.project = 'YOUR-PROJECT-NAME'
