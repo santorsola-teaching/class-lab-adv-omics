@@ -6,8 +6,8 @@ output:
  html_document:
    toc: true
 params:
-    quant_path: /Users/mariangelasantorsola/Downloads/results_ex1/salmon
-    tx2gene: /Users/mariangelasantorsola/Documents/exam_simulation/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    quant_path: /PATH/TO/salmon
+    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
     
 ---
 
