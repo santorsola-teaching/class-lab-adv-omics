@@ -1,0 +1,276 @@
+---
+title: "resequencing and rnaseq data integration: exercise 1 datasets"
+author: "Mariangela Santorsola"
+date: "15/11/2024"
+output:
+ html_document:
+   toc: true
+params:
+    quant_path: /PATH/TO/salmon
+    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    vcf:  /PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  /PATH/TO/extract_annotations_full.R
+    
+---
+### 
+
+### Input data
+
+**Note** Please double-check the file paths for all inputs referenced in this document.
+
+- quant_path: Ensure that this params points to the directory "salmon" containing all individual sample folders. You can upload the compressed Salmon directory (e.g., salmon.zip) directly. RStudio will automatically uncompress it upon upload.
+
+- tx2gene: ensure that you use the following file: [gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
+
+- ext_funcs: ensure that you use the following code: [extract_annotations_full.R](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/16857d96e6dfd80a312abf2f106230c43c4df9f6/L05_reseq_prior_reporting/code/extract_annotations_full.R).
+
+## Differential gene expression analysis
+
+Load R libraries
+
+```{r packages, eval=TRUE, echo=FALSE}
+library(DESeq2)
+library(tximport)
+library(tidyverse)
+library(pheatmap)
+library(clusterProfiler)
+library(DOSE)
+library(org.Hs.eg.db)
+```
+
+
+## Set conditions, e.g. cases/controls
+
+```{r}
+dataset <- tibble(
+  sample = c("control_rep1",
+             "control_rep2",
+             "control_rep3",
+             "treatment_rep1",
+             "treatment_rep2",
+             "treatment_rep3"),
+  condition = c(rep("control", 3),
+                rep("case", 3))
+)
+
+dataset
+```
+
+
+
+## Read the table linking transcripts to genes 
+
+```{r}
+tx2gene <- read_tsv(params$tx2gene, col_names = FALSE, show_col_types = FALSE)
+
+```
+
+## Read quantification files (*.quant) from salmon pseudo-alignment
+
+```{r}
+files <- file.path(params$quant_path, dataset$sample, "quant.sf")
+names(files) <- dataset$sample
+```
+
+
+The function _tximport_ imports the necessary quantification data for DESeq2:
+
+```{r}
+txi <- tximport(files, type = "salmon", tx2gene = tx2gene)
+colnames(txi$counts)
+rownames(dataset) <- colnames(txi$counts)
+
+```
+
+
+##  Construct a DESeqDataSet from the txi object and sample information in dataset
+
+```{r}
+dds <- DESeqDataSetFromTximport(txi, dataset, ~condition)
+```
+
+
+
+## Filter min counts >= 10
+
+```{r}
+keep <- rowSums(counts(dds)) >= 10
+dds <- dds[keep,]
+```
+
+
+## Set base level to "control"
+
+```{r}
+dds$condition <- relevel(dds$condition, ref = "control")
+```
+
+
+## Perform Differential Expression Analysis between cases and controls
+
+```{r}
+dds <- DESeq(dds)
+```
+
+##  Extract results table from the dds object
+
+```{r}
+res <- results(dds)
+head(results(dds, tidy=TRUE)) #let's look at the results table 
+```
+
+
+## DE analysis summary
+
+```{r}
+summary(res)
+```
+
+
+### Order Genes by padj
+
+```{r}
+resOrdered <- res[order(res$padj),]
+resOrdered
+```
+
+
+### List of Differentially Expressed Genes
+
+```{r significant_genes_table, eval=TRUE, echo=FALSE, include=TRUE}
+resOrdered <- res[order(res$padj),]
+resOrdered <- na.omit(resOrdered) ### omit "NA" values 
+resOrdered$Gene <- rownames(resOrdered)
+sign_de_genes_table <- as_tibble(resOrdered[resOrdered$padj < 0.1,])
+sign_de_genes_table %>% 
+    dplyr::select(Gene, log2FoldChange, pvalue, padj) %>%
+    knitr::kable()
+significant_de_genes <- sign_de_genes_table$Gene
+```
+
+
+### Variant annotation, filtering and prioritization
+
+
+```{r variant_settings, echo=FALSE, include=FALSE}
+library(knitr)
+library(VariantAnnotation)
+library(tidyverse)
+source(params$ext_funcs)
+```
+
+Read vcf file from nf-core/sarek:
+
+```{r import_VCF, eval=TRUE, echo=TRUE, include=TRUE, warning=FALSE, message=FALSE}
+vcf <- readVcf(params$vcf)
+```
+```{r rowRanges, eval=TRUE, echo=FALSE, include=FALSE}
+head(rowRanges(vcf))
+```
+```{r infoSection, eval=TRUE, echo=FALSE, include=FALSE}
+head(info(vcf))
+```
+```{r genoSection, eval=TRUE, echo=FALSE, include=FALSE}
+head(geno(vcf)$GT)
+```
+
+Create the table of annotations by the INFO field within the VCF file:
+
+```{r simplifyVCF, message=FALSE, warning=FALSE}
+variants <- rowRanges(vcf)
+variants$`REF` <- as.character(variants$`REF`)
+variants$ALT <- sapply(variants$ALT, function(x) as.character(x)[1])
+variants <- as_tibble(variants)
+variants$variantName = names(rowRanges(vcf))
+variants = cbind(variants, as_tibble(geno(vcf)$GT))
+names(variants)[names(variants) == "patient_01_sample_01"] <- "case_case1"
+names(variants)[names(variants) == "patient_02_sample_02"] <- "control_control1"
+variants$gene <- unlist(lapply(info(vcf)$ANN, get_most_severe_gene))
+variants$ens <- unlist(lapply(info(vcf)$ANN, get_most_severe_ens))
+variants$transcript <- unlist(lapply(info(vcf)$ANN, get_most_severe_tr))
+variants$aa_change <- unlist(lapply(info(vcf)$ANN, get_most_severe_aa_change))
+variants$consequence <- unlist(lapply(info(vcf)$ANN, get_most_severe_consequence))
+variants$impact <- unlist(lapply(info(vcf)$ANN, get_most_severe_impact))
+```
+
+### Localization and biological consequences of identified mutations
+ 
+```{r consequences_table, eval=TRUE, echo=FALSE, include=TRUE}
+variants %>%
+  filter(!is.na(consequence)) %>%
+  group_by(consequence) %>%
+  summarise(count=n()) %>%
+  arrange(desc(count)) %>%
+  kable()
+```
+
+
+## Variant Filtering
+
+### Filtering Criteria
+
+The following *r* code block outputs the filtered variants based on the defined criteria:
+
+- missense variants in case and NOT in the matched control
+- "MODERATE" or "HIGH" impact
+- in differentially expressed genes in cases vs control samples
+
+
+```{r filterVariants, eval=TRUE, echo=TRUE, include=TRUE}
+filteredVars = variants %>%
+  filter(control_control1 == "0/0" & 
+            (impact == "MODERATE" | impact == "HIGH") &
+             ens %in% significant_de_genes & 
+            consequence == "missense_variant") 
+filteredVars <- as_tibble(filteredVars)
+```
+
+### Filtered mutations for further validation assays
+
+```{r filtered_vars_table, eval=TRUE, echo=FALSE, include=TRUE}
+selectedVars <- filteredVars %>%
+  dplyr::select(seqnames, start, REF, ALT, gene, consequence, aa_change) 
+selectedVars_table <- selectedVars 
+selectedVars_table %>% knitr::kable()
+
+```
+### Alphamissense annotations
+
+
+In addition to the Ensembl Variant Effect Predictor (VEP) tool (https://www.ensembl.org/Tools/VEP), you can mine the portal AlphaMissense (https://alphamissense.hegelab.org/) to retrieve pathogenicity predictions for missense variants.
+
+
+```{r create_table_for_VEP, eval=TRUE, echo=TRUE, include=TRUE}
+# create table for VEP
+VEP.tab <- filteredVars %>%
+  dplyr::select(seqnames, start, REF, ALT) %>%
+  mutate(ID = ".",  .after = start) %>%
+  mutate(seqnames = substr(seqnames, 4, nchar(.))) # all are from chromosome 21 and VEP does not accept "chr"
+  
+write.table(VEP.tab, "table_to_VEP.txt", col.names = F, row.names = F, quote = FALSE)
+```
+
+Copy the content of the table just written in your home directory "table_to_VEP.txt" and paste in [VEP](https://www.ensembl.org/Homo_sapiens/Tools/VEP). Run and save results obtained as "TXT". Upload those results in the home like you did for the vcf file.
+
+### Alphamissense Pathogenicity Predictions of filtered variants
+After the VEP annotation, you need to search the genes and related protein variants using the Alphamissense portal, you know from the related class.
+
+```{r alphamissense, eval=TRUE, echo=FALSE, include=TRUE}
+VEP.res <- read.table("iT2vOcGKMbnalzUw.txt", header = T, sep ='\t',comment.char = "") # the file name is randomly chosen when you download it from VEP
+
+```
+
+
+```{r alphamissense_filtering, eval=TRUE, echo=TRUE, include=TRUE}
+selectedVars_table <- VEP.res %>% filter(am_class %in% c("ambiguous", "likely_pathogenic")) 
+selectedVars_table %>% 
+  select(Location, Consequence, SYMBOL, SIFT, PolyPhen, am_class, am_pathogenicity, LOEUF) %>% 
+  knitr::kable()
+
+
+```
+
+```{r save_filtered_VEP_results, eval=TRUE, echo=TRUE, include=TRUE}
+# write.table(selectedVars_table, "VEP_filtered_results_ex1_test.txt", row.names = F, quote = FALSE)
+```
+
