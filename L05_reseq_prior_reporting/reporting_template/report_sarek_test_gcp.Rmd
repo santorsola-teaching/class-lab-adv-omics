@@ -6,8 +6,8 @@ output:
  html_document:
    toc: true
 params:
-    vcf:  joint_germline_recalibrated_snpEff.ann.vcf.gz
-    ext_funcs:  extract_annotations_full.R
+    vcf:  /PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  /PATH/TO/extract_annotations_full.R
 ---
 ### Variant calling and annotation
 ```{r variant_settings, echo=FALSE, include=FALSE}
