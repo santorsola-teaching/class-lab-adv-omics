@@ -20,7 +20,7 @@ Copy the *External IP* of the created VM
 
 Open a new Browser window
 
-paste: <External IP>:8787
+paste: '''<External IP>:8787'''
 
 
 IMPORTANT: Loading the RStudio interface can take some time.
