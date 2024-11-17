@@ -6,8 +6,8 @@ output:
  html_document:
    toc: true
 params:
-    quant_path: /PATH/TO/salmon
-    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    quant_path: /Users/mariangelasantorsola/Downloads/results_ex1/salmon
+    tx2gene: /Users/mariangelasantorsola/Documents/exam_simulation/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
     
 ---
 
@@ -49,7 +49,7 @@ Understand the biological implications of expression changes, such as pathways, 
 ```
 You can upload the compressed Salmon directory (e.g., salmon.zip) directly. RStudio will automatically uncompress it upon upload.
 
-- tx2gene: ensure that you use the following file: [gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
+- tx2gene: ensure that you use the following file:: [gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
 
 
 ## R env setup
@@ -89,8 +89,9 @@ dataset
 ## Read the table linking transcripts to genes 
 
 ```{r}
-tx2gene <- read_tsv(params$tx2gene, col_names = FALSE, show_col_types = FALSE)
+tx2gene <- read_tsv(params$tx2gene, col_names = TRUE, show_col_types = FALSE)
 
+#tx2gene[tx2gene$TXNAME == "ENST00000624081",] #ENSG00000279493
 ```
 
 
@@ -100,16 +101,35 @@ tx2gene <- read_tsv(params$tx2gene, col_names = FALSE, show_col_types = FALSE)
 ```{r}
 files <- file.path(params$quant_path, dataset$sample, "quant.sf")
 names(files) <- dataset$sample
+
+#quant <- read_tsv(files[1]) ## transcript-level data
+#head(quant)
+#quant[quant$Name == "ENST00000624081",]
 ```
 
+quant.sf includes:
 
-The function _tximport_ imports the necessary quantification data for DESeq2:
+- Name: target transcript ID
+- Length: length of the target transcript 
+- EffectiveLength: computed effective length of the target transcript, based on all factors that will effect the probability of sampling fragments from this transcript, e.g. gc-content   
+- TPM: transcripts-per-million, relative abundance measure
+- NumReads: salmon’s estimation of the number of reads
+
+
+
+The function _tximport_ imports transcript-level estimates from various external software and optionally summarizes abundances, counts, and transcript lengths to the gene-level for DESeq2:
 
 ```{r}
 txi <- tximport(files, type = "salmon", tx2gene = tx2gene)
 colnames(txi$counts)
 rownames(dataset) <- colnames(txi$counts)
 
+
+#ls(txi)
+#head(txi$abundance) ## provided by the quantification tools as TPM (transcripts-per-million)
+#head(txi$counts)    ## estimated counts
+#head(txi$length)    ## the effective gene lengths
+#head(txi$countsFromAbundance) ## "no" default: not scaling
 ```
 
 
@@ -117,11 +137,16 @@ rownames(dataset) <- colnames(txi$counts)
 
 ```{r}
 dds <- DESeqDataSetFromTximport(txi, dataset, ~condition)
+
+
+#x <- assays(dds)$counts
+#x[rownames(x) == 'ENSG00000141956',]
 ```
 
 
 
-## Filter min counts >= 10
+## Prefiltering
+Filter low count genes before running the DESeq2 functions, to reduce the memory size of the dds data object, and increase the speed of count modeling within DESeq2 
 
 ```{r}
 keep <- rowSums(counts(dds)) >= 10
@@ -146,14 +171,15 @@ dds <- DESeq(dds)
 
 DESeq2 main steps:
 
-- estimating size factors
+- estimating size factors: related to the library size (total number of reads in the library), considers that the most higly expressed genes take up the majority of the reads
 - using 'avgTxLength' from assays(dds), correcting for library size
 - estimating dispersions
 - gene-wise dispersion estimates
 - mean-dispersion relationship
 - final dispersion estimates
 - fitting model and testing
-
+## fit curve to gene-wise dispersion estimates
+## shrink gene-wise dispersion estimates toward the values predicted by the curve
 
 
 ##  Extract results table from the dds object
@@ -163,6 +189,12 @@ res <- results(dds)
 head(results(dds, tidy=TRUE)) #let's look at the results table 
 ```
 
+By default DESeq2 uses the Wald test to identify genes that are differentially expressed between two sample classes.
+To get information on each field in results:
+
+```{r}
+mcols(res, use.names=TRUE)
+```
 
 
 ## DE analysis summary
@@ -184,6 +216,7 @@ resOrdered
 ### Data visualization
 
 #### MA plot
+The MA plot shows the mean of the normalized counts versus the log2 foldchanges for all genes tested. The genes that are significantly DE are colored (blue) to be easily identified.
 
 ```{r maplot, eval=TRUE, echo=FALSE, include=TRUE, fig.cap="Plot showing the log2 fold change over the mean of normalized counts for analysed samples"}
 plotMA(res, ylim=c(-3,3))
@@ -195,9 +228,9 @@ plotMA(res, ylim=c(-3,3))
 ## Dispersion plot
 
 ```{r}
-pdf("plots_dispersion.pdf")
+#pdf("plots_dispersion.pdf")
 plotDispEsts(dds)
-dev.off()
+#dev.off()
 ```
 
 
@@ -205,10 +238,11 @@ dev.off()
 
 # Plot counts 
 
+Useful to inspect the counts of reads for a single gene across the groups. 
 ```{r}
-pdf("plots_counts.pdf")
-plotCounts(dds, gene=which.min(res$padj), intgroup="condition")
-dev.off() 
+#pdf("plots_counts.pdf")
+plotCounts(dds, gene=which.min(res$padj), intgroup="condition") # e.g. gene with the lowest padj value
+#dev.off() 
 
 ```
 
@@ -239,6 +273,8 @@ df <- as.data.frame(colData(dds)[,c("condition")])
 
 ### CLUSTERING visualization
 
+Useful to explore the count matrix.
+
 ```{r}
 #pdf("plots_heatmap.pdf")
 pheatmap(assay(ntd)[select,],
@@ -249,10 +285,32 @@ pheatmap(assay(ntd)[select,],
 
 
 ## Plot Principal Component Aanalysis
+Useful for visualizing the overall effect of experimental covariates and batch effects.
+
 ```{r}
-pdf("plots_pca.pdf")
+#pdf("plots_pca.pdf")
 plotPCA(ntd, intgroup=c("condition"))
-dev.off()
+#dev.off()
+```
+
+### List of Differentially Expressed Genes
+
+```{r significant_genes_table, eval=TRUE, echo=FALSE, include=TRUE}
+resOrdered <- res[order(res$padj),]
+resOrdered <- na.omit(resOrdered) ### omit "NA" values 
+resOrdered$Gene <- rownames(resOrdered)
+sign_de_genes_table <- as_tibble(resOrdered[resOrdered$padj < 0.1,])
+sign_de_genes_table %>% 
+    dplyr::select(Gene, log2FoldChange, pvalue, padj) %>%
+    knitr::kable()
+significant_de_genes <- sign_de_genes_table$Gene
+```
+
+
+
+```{r}
+### check gene Ensembl ID / Gene symbol
+#sig_genes_names <- tx2gene[which(tx2gene$gene_id %in% sig_genes),]
 ```
 
 
@@ -267,35 +325,28 @@ universe <- AnnotationDbi::select(org.Hs.eg.db,
                                   columns = c('ENTREZID','SYMBOL','ENSEMBL','ENSEMBLTRANS'),
                                   keytype = 'ENTREZID')
 
-sig_genes <- resdata$gene[which(resdata$padj<0.05)]
-entrez_genes_sig <- unique(universe[which(universe$ENSEMBL %in% sig_genes),]$ENTREZID)
 
-pvalue_ens_genes <- resdata$padj[which(resdata$padj<0.05)]
-names(pvalue_ens_genes)<-sig_genes
+#entrez_genes_sig <- unique(universe[which(universe$ENSEMBL %in% significant_de_genes),]$ENTREZID)
 
-pvalue_entrez_genes <- resdata$padj[which(resdata$padj<0.05)]
-names(pvalue_entrez_genes) <- entrez_genes_sig
+#pvalue_ens_genes <- res$padj[which(res$padj<0.05)]
+#names(pvalue_ens_genes)<-sig_genes
+
+#pvalue_entrez_genes <- res$padj[which(res$padj<0.05)]
+#names(pvalue_entrez_genes) <- entrez_genes_sig
 
 ```
 
-
-
-### check gene Ensembl ID / Gene symbol
-
-```{r}
-sig_genes_names <- tx2gene[which(tx2gene$gene_id %in% sig_genes),]
-```
 
 
 
 ### GO Enrichment Analysis
 
 ```{r}
-ego <- enrichGO( gene = sig_genes,
-                 universe = unique(tx2gene$gene_id),
+ego <- enrichGO( gene = significant_de_genes,
+                 universe = unique(tx2gene$GENEID),
                  OrgDb = org.Hs.eg.db,
                  keyType = 'ENSEMBL',
-                 ont = "CC", # alternatives are BP (biological processes) and MF (molecular functions). Check if you get significant results also with these alternatives
+                 ont = "CC", # The GO three main aspects are: Molecular Function (MF), Cellular Component (CC) and Biological Process (BP)
                  pAdjustMethod = "BH",
                  pvalueCutoff  = 0.05)
 
@@ -307,7 +358,8 @@ ego <- enrichGO( gene = sig_genes,
 
 ```{r}
 #pdf("plots_ego.pdf")
-dotplot(ego, showCategory=30)
+p <- dotplot(ego, showCategory=30)
+p
 #dev.off()
 ```
 
@@ -316,23 +368,11 @@ dotplot(ego, showCategory=30)
 
 ```{r}
 #pdf("plots_network-ego.pdf")
-cnetplot(ego, foldChange=resdata$log2FoldChange[which(resdata$padj<0.5)])
+cnetplot(ego, foldChange=resOrdered$log2FoldChange[which(resOrdered$padj<0.5)])
 #dev.off()
 
 ```
 
 
 
-### List of Differentially Expressed Genes
-
-```{r significant_genes_table, eval=TRUE, echo=FALSE, include=TRUE}
-resOrdered <- res[order(res$padj),]
-resOrdered <- na.omit(resOrdered) ### omit "NA" values 
-resOrdered$Gene <- rownames(resOrdered)
-sign_de_genes_table <- as_tibble(resOrdered[resOrdered$padj < 0.1,])
-sign_de_genes_table %>% 
-    dplyr::select(Gene, log2FoldChange, pvalue, padj) %>%
-    knitr::kable()
-significant_de_genes <- sign_de_genes_table$Gene
-```
 
