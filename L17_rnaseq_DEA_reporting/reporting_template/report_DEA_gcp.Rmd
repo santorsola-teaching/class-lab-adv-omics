@@ -171,7 +171,7 @@ dds <- DESeq(dds)
 
 DESeq2 main steps:
 
-- estimating size factors: related to the library size (total number of reads in the library), considers that the most higly expressed genes take up the majority of the reads
+- estimating size factors: related to the library size (total number of reads in the library), considers that the most highly expressed genes take up the majority of the reads
 - using 'avgTxLength' from assays(dds), correcting for library size
 - estimating dispersions
 - gene-wise dispersion estimates
