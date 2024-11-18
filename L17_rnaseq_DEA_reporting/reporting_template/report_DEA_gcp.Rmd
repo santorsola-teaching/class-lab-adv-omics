@@ -112,7 +112,7 @@ quant.sf includes:
 - Name: target transcript ID
 - Length: length of the target transcript 
 - EffectiveLength: computed effective length of the target transcript, based on all factors that will effect the probability of sampling fragments from this transcript, e.g. gc-content   
-- TPM: transcripts-per-million, relative abundance measure
+- TPM: transcripts-per-million, relative abundance measure, (exon reads in gene) / (total exon reads) x 1 million
 - NumReads: salmon’s estimation of the number of reads
 
 
