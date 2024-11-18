@@ -262,7 +262,7 @@ save.image("deseq2_analysis.RData")
 ## CLUSTERING analysis
 
 ```{r}
-ntd <- normTransform(dds)        # These transformations are used for visualisation purposes
+ntd <- normTransform(dds)        
 select <- order(rowMeans(counts(dds,normalized=TRUE)),
                 decreasing=TRUE)[1:20]
 
