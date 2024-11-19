@@ -85,7 +85,7 @@ Make sure to replace 'YOUR-PROJECT-NAME' with the appropriate project name for y
 
 ## Launch nf-core/rnaseq: read quantification
 
-For detailed command-line instructions to run Sarek, refer to see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L12_rnaseq_gcp/rnaseq_run/rnaseq_run.sh)
+For detailed command-line instructions to run rnaseq, refer to see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L12_rnaseq_gcp/rnaseq_run/rnaseq_run.sh)
 
 
 Required Replacements:
