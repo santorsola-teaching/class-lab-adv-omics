@@ -7,7 +7,6 @@ nextflow run nf-core/rnaseq -r 3.16.1 \
 --skip_alignment \
 --skip_biotype_qc \
 -c rnaseq_nextflow.config \
--profile gls \
 --skip_stringtie \
 --skip_bigwig \
 --skip_umi_extract \
