@@ -114,3 +114,24 @@ You can use the Rmd code template available [here](https://github.com/santorsola
 Note: the additional code to carry out the analyses is available [here](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L05_reseq_prior_reporting/code)
 
 
+Note: When opening the Rmd document with the report template, you may be prompted to install certain packages required by the code. If prompted, proceed with the installation as needed.
+
+
+## Knitting to HTML
+When knitting to HTML, you might be prompted to install a new version of the markdown package. Please proceed with the installation.
+
+
+
+## Closing the Workspace
+
+After completing your analysis, you can close the Gitpod and RStudio windows in your browser.
+
+Additionally, to **save credits**, you should **delete your workspace**. To do this:
+
+1. Go to [Gitpod](https://gitpod.io/).
+2. You will be redirected to your [workspaces](https://gitpod.io/workspaces).
+3. Click on the three dots next to the workspace you want to delete.
+4. Select **Delete** (in red).
+
+
+
