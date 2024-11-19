@@ -1,4 +1,4 @@
-nextflow run nf-core/rnaseq -r 3.16.1 \
+nextflow run nf-core/rnaseq -r 3.12.0 \
 --input  datasets_LABOS_exercise1/rnaseq/reads/rnaseq_samplesheet.csv \
 --outdir 'outdir' \
 -work-dir 'workdir' \
