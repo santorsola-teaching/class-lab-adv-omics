@@ -63,14 +63,6 @@ Each sample should be listed in a single row of the input samplesheet.
 For detailed instructions on configuring the Nextflow config file to run rnaseq, refer to [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L18_rnaseq_gitpod/rnaseq_run_gitpod/rnaseq_nextflow.config).
 
 
-
-Required Information:
-- google.project = 'YOUR-PROJECT-NAME'
-
-
-Note:
-Replace 'YOUR-PROJECT-NAME' with the appropriate project name for your setup.
-
 Ensure your config includes the following lines:
 
 ```
@@ -84,6 +76,9 @@ These settings enable Docker and mount the container with all the necessary tool
 ## Launch nf-core/rnaseq: read quantification
 
 For detailed command-line instructions to run rnaseq, refer to [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L18_rnaseq_gitpod/rnaseq_run_gitpod/rnaseq_run.sh)
+
+
+**Note:** We are using version `r 3.12.0` for compatibility with the Gitpod container. This will not affect your results.
 
 
 Required Replacements:
@@ -123,7 +118,7 @@ This command will keep the gitpod session active for exactly 2 hours, providing 
 You can use the Rmd code template available [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L17_rnaseq_DEA_reporting/reporting_template/report_DEA_gcp.Rmd) to get the HTML final report. 
 
 
-Note: the additional file to carry out the analyses is available [here](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
+**Note**: the additional file to carry out the analyses is available [here](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
 
 
 Note: When opening the Rmd document with the report template, you may be prompted to install certain packages required by the code. If prompted, proceed with the installation as needed.
@@ -138,7 +133,7 @@ When knitting to HTML, you might be prompted to install a new version of the mar
 
 After completing your analysis, you can close the Gitpod and RStudio windows in your browser.
 
-Additionally, to save credits, you should delete your workspace. To do this:
+Additionally, to **save credits**, you should **delete your workspace**. To do this:
 
 1. Go to [Gitpod](https://gitpod.io/).
 2. You will be redirected to your [workspaces](https://gitpod.io/workspaces).
