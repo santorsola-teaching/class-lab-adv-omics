@@ -86,6 +86,17 @@ Required Replacements:
 - Replace ```-work-dir 'workdir'``` with the path to your working directory in the gitpod home (```/workspace/gitpod/workfolder```).
 
 
+To download the *salmon* directory, right-click on it, choose **Download**, and then compress the directory into a file named `salmon.zip`.
+
+Alternatively, you can compress the directory directly in the Gitpod environment by entering the following command in the terminal:
+
+```
+zip -r salmon.zip /PATH/TO/salmon
+```
+
+Once the directory is compressed into a ZIP file, you can upload it to the RStudio environment.
+
+
 # Downstream analyses
 
 ## Launching the RStudio environment
