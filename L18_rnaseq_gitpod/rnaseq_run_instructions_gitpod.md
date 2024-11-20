@@ -85,6 +85,7 @@ Required Replacements:
 - Replace ```--outdir 'outdir'``` with the path to your desired output directory in the gitpod home (```/workspace/gitpod/workfolder```).
 - Replace ```-work-dir 'workdir'``` with the path to your working directory in the gitpod home (```/workspace/gitpod/workfolder```).
 
+### Downloading and Compressing the Salmon Directory
 
 To download the *salmon* directory, right-click on it, choose **Download**, and then compress the directory into a file named `salmon.zip`.
 
