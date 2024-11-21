@@ -93,15 +93,16 @@ This command will keep the gitpod session active for exactly 2 hours, providing 
 #### Inputs
 
 Expression data:
-- quant.sf files from nf-core/rnaseq ([salmon.zip]((https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L19_from_mutation_to_protein/quant_datasets_ex1)))
+- quant.sf files in [salmon.zip](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L19_from_mutation_to_protein/quant_datasets_ex1) from nf-core/rnaseq
 
 - transcript to gene IDs ([gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt))
 
 Variants:
-- VCF file [joint_germline_recalibrated_snpEff.ann.vcf.gz]((https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L19_from_mutation_to_protein/vcf_datasets_ex1/))
+- VCF file [joint_germline_recalibrated_snpEff.ann.vcf.gz](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L19_from_mutation_to_protein/vcf_datasets_ex1/)
 
 External code
 - [extract_annotations_full.R](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/129ee4ce31dca55bf677f3e93ef489348370eda3/L05_reseq_prior_reporting/code/extract_annotations_full.R)
+
 
 
 
