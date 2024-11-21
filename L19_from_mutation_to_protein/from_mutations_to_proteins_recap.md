@@ -61,6 +61,35 @@ Include visualizations to support findings.
 Discuss the potential biological significance of identified mutations, particularly those predicted to be pathogenic.
 
 
+#### Launch gitpod:
+
+[![Open in GitPod](https://img.shields.io/badge/Gitpod-%20Open%20in%20Gitpod-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/santorsola-teaching/nf-core-gitpod-run)
+
+
+
+#### Launching the RStudio environment
+
+
+```bash
+sudo rstudio-server start
+```
+
+A pop-up will appear and by clicking on **Open**, we will be redirected to the RStudio login page. By inserting the username and the password reported below, you will be able to connect to RStudio:
+
+```bash
+Username: gitpod
+Password: pass
+```
+
+To prevent losing connection, go back to gitpod and type on the **Terminal**:
+
+```bash
+sleep 2h
+```
+
+This command will keep the gitpod session active for exactly 2 hours, providing sufficient time to complete our analysis without interruption.
+
+
 #### Inputs
 
 Expression data:
