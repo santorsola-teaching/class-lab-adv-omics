@@ -1,8 +1,9 @@
 # From mutations to proteins
 
-The goal of this assignment is to explore omics datasets, including re-sequencing and RNAseq data. The focus will be on running the nf-core/sarek and nf-core/rnaseq pipelines to perform variant calling and transcript quantification, respectively.
+Explore omics datasets, including whole-genome re-sequencing and RNA-seq data, by running the nf-core/sarek and nf-core/rnaseq pipelines to perform variant calling and transcript quantification, respectively.
 
-Additionally, you will investigate the potential impact of identified mutations on protein structure and function using the AlphaMissense resource.
+Analyze the potential impact of identified mutations on protein structure and function using the AlphaMissense resource.
+
 
 ## Datasets:
 
@@ -60,6 +61,26 @@ Include visualizations to support findings.
 Discuss the potential biological significance of identified mutations, particularly those predicted to be pathogenic.
 
 
+#### Inputs
 
+Expression data:
+- quant.sf files from nf-core/rnaseq (salmon.zip)
+
+- transcript to gene IDs (gencode.v29.transcripts_no-vers_chr21_tx2gene.txt)
+
+Variants:
+- vcf file (joint_germline_recalibrated_snpEff.ann.vcf.gz)
+    
+External code 
+- extract_annotations_full.R
+
+
+
+#### External resources
+
+- [VEP](https://www.ensembl.org/Tools/VEP)
+- [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/)
+- [Alphamissense](https://alphamissense.hegelab.org/)
+- [gnomAD](https://gnomad.broadinstitute.org/)
 
 

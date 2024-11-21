@@ -12,7 +12,11 @@ params:
     ext_funcs:  /Users/mariangelasantorsola/Downloads/extract_annotations_full.R
     
 ---
-### 
+
+# Assignment goal
+
+
+*Identification of Variants in Differentially Expressed Genes with Significant Clinical Relevance* 
 
 
 
