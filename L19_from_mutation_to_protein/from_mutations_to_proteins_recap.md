@@ -1,4 +1,4 @@
-# Assignment: From mutations to proteins
+# From mutations to proteins
 
 The goal of this assignment is to explore omics datasets, including re-sequencing and RNAseq data. The focus will be on running the nf-core/sarek and nf-core/rnaseq pipelines to perform variant calling and transcript quantification, respectively.
 
