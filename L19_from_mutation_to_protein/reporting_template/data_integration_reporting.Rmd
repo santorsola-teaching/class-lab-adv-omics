@@ -6,10 +6,10 @@ output:
  html_document:
    toc: true
 params:
-    quant_path: /Users/mariangelasantorsola/Documents/lab-adv-omics-2023/results_cloud_LABOS_2024/rnaseq/rnaseq_results_ex1/salmon_ex1
-    tx2gene: /Users/mariangelasantorsola/Documents/lab-adv-omics-2023/datasets_LABOS_exercise3/results/salmon/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
-    vcf:  /Users/mariangelasantorsola/Documents/lab-adv-omics-2023/results_cloud_LABOS_2024/sarek/sarek_results_ex1/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz
-    ext_funcs:  /Users/mariangelasantorsola/Downloads/extract_annotations_full.R
+    quant_path: /PATH/TO/salmon
+    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    vcf:  /PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  /PATH/TO/extract_annotations_full.R
     
 ---
 
