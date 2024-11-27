@@ -1,15 +1,15 @@
 ---
 title: "resequencing and rnaseq data integration: exercise 1 datasets"
-author: "Mariangela Santorsola"
-date: "15/11/2024"
+author: "Riccardo Piccinno"
+date: "26/11/2024"
 output:
  html_document:
    toc: true
 params:
-    quant_path: /PATH/TO/salmon
-    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
-    vcf:  /PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
-    ext_funcs:  /PATH/TO/extract_annotations_full.R
+    quant_path: /home/rstudio/salmon
+    tx2gene: /home/rstudio/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    vcf:  /home/rstudio/joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  /home/rstudio/extract_annotations_full.R
     
 ---
 
@@ -18,11 +18,31 @@ params:
 
 *Identification of Variants in Differentially Expressed Genes with Significant Clinical Relevance* 
 
+## rnaseq run information
 
+```{bash rnaseq_run, eval=FALSE, echo=FALSE, message=FALSE, include=FALSE}
+nextflow run nf-core/rnaseq -r 3.16.1 \
+--input  datasets_LABOS_exercise1/rnaseq/reads/rnaseq_samplesheet.csv \
+--outdir 'outdir-in-your-bucket' \
+-work-dir 'workdir-in-your-bucket' \
+--genome GRCh38chr21 \
+--pseudo_aligner salmon \
+--skip_alignment \
+--skip_biotype_qc \
+-c rnaseq_nextflow.config \
+-profile gls \
+--skip_stringtie \
+--skip_bigwig \
+--skip_umi_extract \
+--skip_trimming \
+--skip_fastqc
+
+```
+
+[link config file](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L12_rnaseq_gcp/rnaseq_run/rnaseq_nextflow.config)
 
 ## Differential gene expression analysis
 
-Load R libraries:
 
 ```{r packages, eval=TRUE, echo=FALSE, message=FALSE, include=FALSE}
 library(DESeq2)
@@ -71,7 +91,7 @@ names(files) <- dataset$sample
 
 The function _tximport_ imports the necessary quantification data for DESeq2:
 
-```{r tximport_quant_data, eval=TRUE, echo=FALSE}
+```{r tximport_quant_data, eval=TRUE, echo=FALSE, warning=FALSE}
 txi <- tximport(files, type = "salmon", tx2gene = tx2gene)
 colnames(txi$counts)
 rownames(dataset) <- colnames(txi$counts)
@@ -112,7 +132,6 @@ dds <- DESeq(dds)
 
 ```{r list_expr_genes, eval=TRUE, echo=FALSE}
 res <- results(dds)
-head(results(dds, tidy=TRUE)) #let's look at the results table 
 ```
 
 
@@ -127,7 +146,6 @@ summary(res)
 
 ```{r sort_gene_list, eval=TRUE, echo=FALSE}
 resOrdered <- res[order(res$padj),]
-resOrdered
 ```
 
 
@@ -144,12 +162,13 @@ sign_de_genes_table %>%
 significant_de_genes <- sign_de_genes_table$Gene
 ```
 
-
+```{r MA_plot, eval=TRUE, echo=FALSE, include=TRUE, fig.cap="Plot showing the log2 fold change over the mean of normalized counts for analysed samples"}
+plotMA(res, ylim=c(-3,3))
+```
 
 
 ## Variant annotation, filtering and prioritization
 
-Load R libraries:
 
 ```{r variant_settings, echo=FALSE, include=FALSE}
 library(knitr)
@@ -239,10 +258,20 @@ Select relevant field within filteredVars table:
 
 ```{r filtered_vars_table, eval=TRUE, echo=FALSE, include=TRUE}
 selectedVars <- filteredVars %>%
-  dplyr::select(seqnames, start, REF, ALT, gene, consequence, aa_change) 
+  dplyr::select(seqnames, start, REF, ALT, gene, consequence, aa_change, transcript) 
 selectedVars_table <- selectedVars 
 selectedVars_table %>% knitr::kable()
 
+```
+
+```{r create_table_for_VEP, eval=TRUE, echo=TRUE, include=TRUE}
+# create table for VEP
+VEP.tab <- filteredVars %>%
+  dplyr::select(seqnames, start, REF, ALT) %>%
+  mutate(ID = ".",  .after = start) %>%
+  mutate(seqnames = substr(seqnames, 4, nchar(.))) # all are from chromosome 21 and VEP does not accept "chr"
+  
+write.table(VEP.tab, "table_to_VEP.txt", col.names = F, row.names = F, quote = FALSE)
 ```
 
 ### Additional annotations using VEP
@@ -252,7 +281,7 @@ In addition to the Ensembl Variant Effect Predictor (VEP) tool (https://www.ense
 You can add more information about the prioritized variant(s), such as clinvar significance (ClinVar), variant allele frequency (gnomAD), and all external tool and resources seen in the course.
 
 ```{r alphamissense, eval=TRUE, echo=FALSE, include=TRUE}
-VEP.res <- read.table("zhyEWvj76ioVBWak.txt", header = T, sep ='\t',comment.char = "") # the file name is randomly chosen when you download it from VEP
+VEP.res <- read.table("6syDM9Fsyk7qo2Dc.txt", header = T, sep ='\t',comment.char = "") # the file name is randomly chosen when you download it from VEP
 
 ```
 
@@ -281,6 +310,7 @@ prioritised_variants <- result %>%
                CLIN_SIG == "Pathogenic/Likely pathogenic")
 
 prioritised_variants %>% 
+  dplyr::select(Location, Consequence, SYMBOL, SIFT, CLIN_SIG, PolyPhen, am_class, am_pathogenicity, LOEUF) %>% 
     knitr::kable()
 ```
 
