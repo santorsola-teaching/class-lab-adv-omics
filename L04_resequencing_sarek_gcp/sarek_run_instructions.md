@@ -37,10 +37,10 @@ echo $GOOGLE_APPLICATION_CREDENTIALS
 On your VM SSH terminal, type:
 
 ```{bash}
-git clone https://github.com/lescai-teaching/datasets_reference_only.git
+git clone https://github.com/msantorsola/datasets_reference_only.git
 ```
 
-to download the customized Human reference files related to chromosome 21.
+to download the customised human reference files related to chromosome 21.
 
 
 
