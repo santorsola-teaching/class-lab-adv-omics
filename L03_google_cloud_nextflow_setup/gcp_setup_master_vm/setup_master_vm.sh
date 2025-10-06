@@ -2,6 +2,7 @@
 ## system installation steps ##################
 ###############################################
 
+# CentOS Stream 9 x86/64
 # Each time you spin up a new VM, 
 # you'll need to manually install the following tools 
 # to ensure your environment is properly set up:
@@ -9,7 +10,7 @@
 
 
 sudo yum install -y git
-sudo yum install -y java-11-openjdk-devel
+sudo yum install -y java-17-openjdk-devel
 
 sudo yum install epel-release
 sudo yum install -y screen
