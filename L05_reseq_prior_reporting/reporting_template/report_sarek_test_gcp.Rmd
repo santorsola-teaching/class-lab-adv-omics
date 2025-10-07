@@ -87,11 +87,14 @@ variants %>%
 The following *r* code block outputs the filtered variants based on the defined criteria:
 
 ```{r filterVariants, eval=TRUE, echo=TRUE, include=TRUE}
-filteredVars = variants %>%
-  filter(control_control1 == "0/0" & 
-            (impact == "MODERATE" | impact == "HIGH") &
-            # ens %in% significant_de_genes & 
-            consequence == "missense_variant") 
+filteredVars <- variants %>%
+  filter(
+    control_control1 %in% c("0/0", "0|0") &               # accept both phased and unphased reference genotypes
+    impact %in% c("MODERATE", "HIGH") &
+    # ens %in% significant_de_genes &                   # functional impact filter
+    consequence == "missense_variant"                    # biologically relevant variant type
+  )
+
 filteredVars <- as_tibble(filteredVars)
 ```
 
