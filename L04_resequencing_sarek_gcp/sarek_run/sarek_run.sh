@@ -1,5 +1,4 @@
 
-screen
 
 
 nextflow run nf-core/sarek -r 3.4.4 \
