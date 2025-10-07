@@ -10,7 +10,7 @@
 
 
 sudo yum install -y git
-sudo yum install -y java-17-openjdk-devel
+sudo yum install -y java-11-openjdk-devel
 
 sudo yum install epel-release
 sudo yum install -y screen
@@ -37,12 +37,21 @@ cd ..
 
 # set the `PATH` environment variable
 export PATH=${PATH}:${PWD}/nfbin/
+
 #e.g. export PATH=${PATH}:/home/<YOUR_HOME_FOLDER>/nfbin/
+
+echo 'export PATH=${PATH}:${PWD}/nfbin/' >> ~/.bashrc
+
 
 ### the following assumes the credentials have been previously saved
 ### in a key with a name of your choice
 
-export GOOGLE_APPLICATION_CREDENTIALS=/home/<YOUR_HOME_FOLDER>/NAME-OF-YOUR-KEY.json
+
+export GOOGLE_APPLICATION_CREDENTIALS=/home/$(whoami)/"YOUR-PRIVATE-JSON-KEY"
+
+
+echo "export GOOGLE_APPLICATION_CREDENTIALS=/home/$(whoami)/"YOUR-PRIVATE-JSON-KEY" >> ~/.bashrc
+
 
 
 

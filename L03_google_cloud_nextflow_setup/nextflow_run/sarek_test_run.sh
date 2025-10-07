@@ -1,4 +1,4 @@
-nextflow run nf-core/sarek -r 3.5.1 \
+nextflow run nf-core/sarek -r 3.4.4 \
 -c nextflow.config \
 -profile test,gls \
 --outdir 'gs://<YOUR_BUCKET_NAME>/results' \
