@@ -19,7 +19,7 @@ sudo yum install -y screen
 ## only after these tools are installed
 ## you can install nextflow as well
 
-export NXF_VER=25.04.7
+export NXF_VER=24.04.4
 export NXF_MODE=google
 
 
