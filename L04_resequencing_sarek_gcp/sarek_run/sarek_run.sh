@@ -3,8 +3,8 @@
 
 nextflow run nf-core/sarek -r 3.4.4 \
 --input datasets_LABOS_exercise1/germline/reads/sarek_samplesheet.csv \
---outdir 'outdir-in-your-bucket' \
--work-dir 'workdir-in-your-bucket' \
+--outdir gs://<outdir-in-your-bucket> \
+-work-dir gs://<workdir-in-your-bucket> \
 --igenomes_ignore true \
 --genome GRCh38chr21 \
 --tools haplotypecaller,snpeff \
