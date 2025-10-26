@@ -1,13 +1,13 @@
 ---
-title: "Omics Data Analysis Report: datasets_LABOS2024_exercise1"
+title: "Resequencing reporting: datasets_LABOS_exercise1"
 author: "Mariangela Santorsola"
-date: "10/10/2024"
+date: "2025/26"
 output:
  html_document:
    toc: true
 params:
-    vcf:  /PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
-    ext_funcs:  /PATH/TO/extract_annotations_full.R
+    vcf:  /home/rstudio/result_dataset1_annotation_haplotypecaller_joint_variant_calling_joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  /home/rstudio/extract_annotations_full.R
 ---
 ### Variant calling and annotation
 ```{r variant_settings, echo=FALSE, include=FALSE}
@@ -21,12 +21,17 @@ Read vcf file from nf-core/sarek:
 ```{r import_VCF, eval=TRUE, echo=TRUE, include=TRUE, warning=FALSE, message=FALSE}
 vcf <- readVcf(params$vcf)
 ```
+
+
 ```{r rowRanges, eval=TRUE, echo=FALSE, include=FALSE}
 head(rowRanges(vcf))
 ```
+
 ```{r infoSection, eval=TRUE, echo=FALSE, include=FALSE}
 head(info(vcf))
 ```
+
+
 ```{r genoSection, eval=TRUE, echo=FALSE, include=FALSE}
 head(geno(vcf)$GT)
 ```
@@ -116,7 +121,7 @@ VEP.tab <- filteredVars %>%
   mutate(ID = ".",  .after = start) %>%
   mutate(seqnames = substr(seqnames, 4, nchar(.))) # all are from chromosome 21 and VEP does not accept "chr"
   
-write.table(VEP.tab, "table_to_VEP.txt", col.names = F, row.names = F, quote = FALSE)
+write.table(VEP.tab, "LABOS_datasets1_table_to_VEP.txt", col.names = F, row.names = F, quote = FALSE)
 ```
 
 Copy the content of the table just written in your home directory "table_to_VEP.txt" and paste in [VEP](https://www.ensembl.org/Homo_sapiens/Tools/VEP). Run and save results obtained as "TXT". Upload those results in the home like you did for the vcf file.
@@ -125,7 +130,9 @@ Copy the content of the table just written in your home directory "table_to_VEP.
 After the VEP annotation, you need to search the genes and related protein variants using the Alphamissense portal, you know from the related class.
 
 ```{r alphamissense, eval=TRUE, echo=FALSE, include=TRUE}
-VEP.res <- read.table("iT2vOcGKMbnalzUw.txt", header = T, sep ='\t',comment.char = "") # the file name is randomly chosen when you download it from VEP
+
+vepped_table_LABOS_datasets1 <- "5A6X1iZoGEuW8qmX.txt" ### replace with the vepped .txt output
+VEP.res <- read.table(vepped_table_LABOS_datasets1, header = T, sep ='\t',comment.char = "") # the file name is randomly chosen when you download it from VEP
 
 ```
 
@@ -140,6 +147,6 @@ selectedVars_table %>%
 ```
 
 ```{r save_filtered_VEP_results, eval=TRUE, echo=TRUE, include=TRUE}
-# write.table(selectedVars_table, "VEP_filtered_results_ex1_test.txt", row.names = F, quote = FALSE)
+write.table(selectedVars_table, "VEP_filtered_results_ex1_test.txt", row.names = F, quote = FALSE)
 ```
 
