@@ -16,9 +16,6 @@ Navigate to Container -> Deploy Container
 
 2. Add variable -> Name: ```DISABLE_AUTH``` /  value: ```true```
 
-- Install the required tools on your VM instance
-
-Follow instructions [here](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L03_google_cloud_nextflow_setup/gcp_setup_master_vm/setup_master_vm.sh)
 
 ## Open RStudio:
 
