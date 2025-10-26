@@ -47,10 +47,10 @@ echo 'export PATH=${PATH}:${PWD}/nfbin/' >> ~/.bashrc
 ### in a key with a name of your choice
 
 
-export GOOGLE_APPLICATION_CREDENTIALS=/home/$(whoami)/"YOUR-PRIVATE-JSON-KEY"
+export GOOGLE_APPLICATION_CREDENTIALS=/home/$(whoami)/<YOUR-PRIVATE-JSON-KEY>
 
 
-echo "export GOOGLE_APPLICATION_CREDENTIALS=/home/$(whoami)/"YOUR-PRIVATE-JSON-KEY" >> ~/.bashrc
+echo 'export GOOGLE_APPLICATION_CREDENTIALS=/home/$(whoami)/<YOUR-PRIVATE-JSON-KEY>' >> ~/.bashrc
 
 
 
