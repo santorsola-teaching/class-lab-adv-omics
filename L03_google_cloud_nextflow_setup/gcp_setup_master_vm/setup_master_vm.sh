@@ -12,7 +12,7 @@
 sudo yum install -y git
 sudo yum install -y java-11-openjdk-devel
 
-sudo yum install epel-release
+sudo yum install -y epel-release
 sudo yum install -y screen
 
 
