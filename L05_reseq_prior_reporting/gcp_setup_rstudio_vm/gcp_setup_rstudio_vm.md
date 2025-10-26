@@ -10,9 +10,15 @@ Follow instructions in this [video](https://drive.google.com/file/d/1Fr699ynIeNN
 
 You need to mount the docker from [here](https://github.com/lescai-teaching/rstudio-docker/pkgs/container/rstudio-docker-amd64)
 
+Navigate to Container -> Deploy Container
+
+1. Container image: ``` ghcr.io/lescai-teaching/rstudio-docker-amd64:latest ``` 
+
+2. Add variable -> Name: ```DISABLE_AUTH``` /  value: ```true```
+
 - Install the required tools on your VM instance
 
-Follow instructions [here](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L03_google_cloud_nextflow_setup/gcp_setup_master_vm)
+Follow instructions [here](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L03_google_cloud_nextflow_setup/gcp_setup_master_vm/setup_master_vm.sh)
 
 ## Open RStudio:
 
