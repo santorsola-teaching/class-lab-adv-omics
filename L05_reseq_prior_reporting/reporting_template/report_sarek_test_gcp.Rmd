@@ -150,3 +150,16 @@ selectedVars_table %>%
 write.table(selectedVars_table, "VEP_filtered_results_ex1_test.txt", row.names = F, quote = FALSE)
 ```
 
+## Assignment: Omics Data Analysis
+
+Choose one or more genes of interest and define your prioritization criteria. Use the databases and tools discussed in class (e.g., gnomAD, ClinVar, and others) to support your analysis.
+
+Prepare a written report addressed to a bioinformatician. The report should include:
+
+- Relevant biological background and rationale for your gene choice
+
+- Description of the prioritization criteria applied
+
+- Results and interpretation supported by data retrieved from the selected databases
+
+- Any code or scripts used in your analysis, ensuring clarity and reproducibility
