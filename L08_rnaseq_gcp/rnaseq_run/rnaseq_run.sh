@@ -2,8 +2,8 @@ screen
 
 nextflow run nf-core/rnaseq -r 3.16.1 \
 --input  datasets_LABOS_exercise1/rnaseq/reads/rnaseq_samplesheet.csv \
---outdir 'outdir-in-your-bucket' \
--work-dir 'workdir-in-your-bucket' \
+--outdir gs://'outdir-in-your-bucket' \
+-work-dir gs://'workdir-in-your-bucket' \
 --genome GRCh38chr21 \
 --pseudo_aligner salmon \
 --skip_alignment \
