@@ -1,13 +1,13 @@
 ---
-title: "Differential Gene Expression Analysis (DEA) Report: exercise 1"
+title: "Differential Gene Expression Analysis (DEA) - reporting: datasets_LABOS_exercise1"
 author: "Mariangela Santorsola"
-date: "15/11/2024"
+date: "2024/25"
 output:
  html_document:
    toc: true
 params:
-    quant_path: /PATH/TO/salmon
-    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    quant_path: /home/rstudio/salmon
+    tx2gene: /home/rstudio/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
     
 ---
 

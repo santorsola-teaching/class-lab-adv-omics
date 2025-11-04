@@ -10,10 +10,6 @@ Follow instructions in this [video](https://drive.google.com/file/d/1Fr699ynIeNN
 
 You need to mount the docker from [here](https://github.com/lescai-teaching/rstudio-docker/pkgs/container/rstudio-docker-amd64)
 
-- Install the required tools on your VM instance
-
-Follow instructions [here](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L03_google_cloud_nextflow_setup/gcp_setup_master_vm)
-
 ## Open RStudio:
 
 Copy the *External IP* of the created VM
