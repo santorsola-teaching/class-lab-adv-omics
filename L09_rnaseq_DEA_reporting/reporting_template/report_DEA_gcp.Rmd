@@ -49,7 +49,7 @@ Understand the biological implications of expression changes, such as pathways, 
 ```
 You can upload the compressed Salmon directory (e.g., salmon.zip) directly. RStudio will automatically uncompress it upon upload.
 
-- tx2gene: ensure that you use the following file:: [gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
+- tx2gene: ensure that you use the following file:: [gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/Tutoring_class_recap/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
 
 
 ## R env setup
