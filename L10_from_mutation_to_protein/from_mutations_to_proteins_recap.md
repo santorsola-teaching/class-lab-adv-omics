@@ -7,8 +7,8 @@ Analyse the potential impact of identified mutations on protein structure and fu
 
 ## Datasets:
 
-- Resequencing and RNAseq: ```https://github.com/santorsola-teaching/datasets_LABOS_exercise1/tree/main```
-- References: ```https://github.com/lescai-teaching/datasets_reference_only.git```
+- [Resequencing and RNAseq datasets, exercise 1](https://github.com/msantorsola/datasets_reference_only)
+- [References](https://github.com/msantorsola/datasets_reference_only)
 
 
 ## Tasks:
