@@ -1,15 +1,15 @@
 ---
-title: "resequencing and rnaseq data integration: exercise 1 datasets"
+title: "Resequencing and RNAseq data integration: datasets_LABOS_exercise1"
 author: "Mariangela Santorsola"
-date: "15/11/2024"
+date: "2025/2026"
 output:
  html_document:
    toc: true
 params:
-    quant_path: /PATH/TO/salmon
-    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
-    vcf:  /PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
-    ext_funcs:  /PATH/TO/extract_annotations_full.R
+    quant_path: /home/rstudio/class_material/salmon
+    tx2gene: /home/rstudio/class_material/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    vcf:  /home/rstudio/class_material/joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  /home/rstudio/class_material/extract_annotations_full.R
     
 ---
 
@@ -33,6 +33,7 @@ library(clusterProfiler)
 library(DOSE)
 library(org.Hs.eg.db)
 ```
+
 
 
 ### Set conditions, e.g. cases/controls
@@ -113,6 +114,11 @@ dds <- DESeq(dds)
 ```{r list_expr_genes, eval=TRUE, echo=FALSE}
 res <- results(dds)
 head(results(dds, tidy=TRUE)) #let's look at the results table 
+```
+```{r}
+#mcols(results(dds))
+as.data.frame(mcols(results(dds)), row.names = NULL)
+
 ```
 
 
@@ -313,6 +319,7 @@ prioritised_variants <- selectedVars %>%
 prioritised_variants %>% 
     knitr::kable()
 ```
+
 
 
 
