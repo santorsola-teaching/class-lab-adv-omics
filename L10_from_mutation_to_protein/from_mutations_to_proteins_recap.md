@@ -1,13 +1,13 @@
 # From mutations to proteins
 
-Explore omics datasets, including whole-genome re-sequencing and RNA-seq data, by running the nf-core/sarek and nf-core/rnaseq pipelines to perform variant calling and transcript quantification, respectively.
+Explore omics datasets, including resequencing and RNAseq data, by running the nf-core/sarek and nf-core/rnaseq pipelines to perform variant calling and transcript quantification, respectively.
 
-Analyze the potential impact of identified mutations on protein structure and function using the AlphaMissense resource.
+Analyse the potential impact of identified mutations on protein structure and function using the AlphaMissense resource.
 
 
 ## Datasets:
 
-- Re-sequencing and RNAseq: ```https://github.com/santorsola-teaching/datasets_LABOS_exercise1/tree/main```
+- Resequencing and RNAseq: ```https://github.com/santorsola-teaching/datasets_LABOS_exercise1/tree/main```
 - References: ```https://github.com/lescai-teaching/datasets_reference_only.git```
 
 
@@ -21,7 +21,7 @@ Use nf-core/sarek to:
 
 Then, select the most relevant mutations in the case sample versus control.
 
-- Tools: ```nf-core/sarek, R, VEP, Alphamissense```
+- Tools: ```e.g., nf-core/sarek, R, VEP, Alphamissense```
 
 
 ### 2. Quantification of transcript expression
@@ -36,7 +36,7 @@ Use nf-core/rnaseq to estimate read counts via salmon pseudo-alignment.
 
 Employ DESeq2 to identify genes with significant differential expression in cases versus controls.
 
-- Tools: ```DESeq2 R package```
+- Tools: ```e.g., DESeq2 R package```
 
 
 ### 4. Protein Mutations in Deregulated Genes
@@ -56,52 +56,25 @@ Interpret the results and categorize mutations based on their potential impact o
 
 ### Reporting:
 
-Create a comprehensive report detailing each step of the analysis, including data processing, variant calling, identification of differentially expressed genes, and downstream analyses. 
-Include visualizations to support findings. 
+Create a comprehensive report detailing each step of the analyses, including data processing, variant calling, identification of differentially expressed genes, and downstream analyses. 
+Include tables and visualisations to support your findings. 
 Discuss the potential biological significance of identified mutations, particularly those predicted to be pathogenic.
 
 
-#### Launch gitpod:
-
-[![Open in GitPod](https://img.shields.io/badge/Gitpod-%20Open%20in%20Gitpod-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/santorsola-teaching/nf-core-gitpod-run)
-
-
-
-#### Launching the RStudio environment
-
-
-```bash
-sudo rstudio-server start
-```
-
-A pop-up will appear and by clicking on **Open**, we will be redirected to the RStudio login page. By inserting the username and the password reported below, you will be able to connect to RStudio:
-
-```bash
-Username: gitpod
-Password: pass
-```
-
-To prevent losing connection, go back to gitpod and type on the **Terminal**:
-
-```bash
-sleep 2h
-```
-
-This command will keep the gitpod session active for exactly 2 hours, providing sufficient time to complete our analysis without interruption.
 
 
 #### Inputs
 
 Expression data:
-- quant.sf files in [salmon.zip](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L19_from_mutation_to_protein/quant_datasets_ex1) from nf-core/rnaseq
+- quant.sf files in [salmon.zip](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L10_from_mutation_to_protein/quant_datasets_ex1/salmon_ex1.zip) from nf-core/rnaseq
 
-- transcript to gene IDs ([gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/lescai-teaching/datasets_reference_only/blob/main/trascriptome/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt))
+- transcript to gene IDs ([gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L10_from_mutation_to_protein/quant_datasets_ex1/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt))
 
 Variants:
-- VCF file [joint_germline_recalibrated_snpEff.ann.vcf.gz](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L19_from_mutation_to_protein/vcf_datasets_ex1/)
+- VCF file [joint_germline_recalibrated_snpEff.ann.vcf.gz](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L10_from_mutation_to_protein/vcf_datasets_ex1/joint_germline_recalibrated_snpEff.ann.vcf.gz)
 
 External code
-- [extract_annotations_full.R](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/129ee4ce31dca55bf677f3e93ef489348370eda3/L05_reseq_prior_reporting/code/extract_annotations_full.R)
+- [extract_annotations_full.R](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L10_from_mutation_to_protein/vcf_datasets_ex1/extract_annotations_full.R)
 
 
 
