@@ -314,34 +314,24 @@ significant_de_genes <- sign_de_genes_table$Gene
 ```
 
 
-
 ## Gene Ontology Enrichment Analysis
 
-### Select the most significant genes by padj
 
-```{r}
-universe <- AnnotationDbi::select(org.Hs.eg.db,
-                                  keys = keys(org.Hs.eg.db),
-                                  columns = c('ENTREZID','SYMBOL','ENSEMBL','ENSEMBLTRANS'),
-                                  keytype = 'ENTREZID')
-
-
-#entrez_genes_sig <- unique(universe[which(universe$ENSEMBL %in% significant_de_genes),]$ENTREZID)
-
-#pvalue_ens_genes <- res$padj[which(res$padj<0.05)]
-#names(pvalue_ens_genes)<-sig_genes
-
-#pvalue_entrez_genes <- res$padj[which(res$padj<0.05)]
-#names(pvalue_entrez_genes) <- entrez_genes_sig
-
+```{r GO_BP}
+# ego <- enrichGO( gene = significant_de_genes, # Foreground genes: DEGs
+#                  universe = unique(tx2gene$GENEID), # Background: all measured genes
+#                  OrgDb = org.Hs.eg.db, # Annotations for Human genes
+#                  keyType = 'ENSEMBL',
+#                  ont = "BP", # The GO three main aspects are: Molecular Function (MF), Cellular Component (CC) and Biological Process (BP)
+#                  pAdjustMethod = "BH",
+#                  pvalueCutoff  = 0.05)
+# 
+# ego
 ```
 
 
 
-
-### GO Enrichment Analysis
-
-```{r}
+```{r GO_CC}
 ego <- enrichGO( gene = significant_de_genes,
                  universe = unique(tx2gene$GENEID),
                  OrgDb = org.Hs.eg.db,
@@ -350,29 +340,38 @@ ego <- enrichGO( gene = significant_de_genes,
                  pAdjustMethod = "BH",
                  pvalueCutoff  = 0.05)
 
+ego
+```
+
+
+#### Visualise enriched GO-CC terms
+
+```{r}
+p <- dotplot(ego, showCategory=20) + ggtitle("Top 20 Enriched Biological Processes")
+p
 ```
 
 
 
-#### Dotplot
+```{r GO_MF}
+# ego <- enrichGO( gene = significant_de_genes,
+#                  universe = unique(tx2gene$GENEID),
+#                  OrgDb = org.Hs.eg.db,
+#                  keyType = 'ENSEMBL',
+#                  ont = "MF", # The GO three main aspects are: Molecular Function (MF), Cellular Component (CC) and Biological Process (BP)
+#                  pAdjustMethod = "BH",
+#                  pvalueCutoff  = 0.05)
+# 
+# ego
 
-```{r}
-#pdf("plots_ego.pdf")
-p <- dotplot(ego, showCategory=30)
-p
-#dev.off()
 ```
 
 
 #### Gene-Concept Network
 
 ```{r}
-#pdf("plots_network-ego.pdf")
 cnetplot(ego, foldChange=resOrdered$log2FoldChange[which(resOrdered$padj<0.5)])
-#dev.off()
 
 ```
-
-
 
 

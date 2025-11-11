@@ -150,6 +150,65 @@ sign_de_genes_table %>%
 significant_de_genes <- sign_de_genes_table$Gene
 ```
 
+## Gene Ontology Enrichment Analysis
+
+
+```{r GO_BP}
+# ego <- enrichGO( gene = significant_de_genes, # Foreground genes: DEGs
+#                  universe = unique(tx2gene$GENEID), # Background: all measured genes
+#                  OrgDb = org.Hs.eg.db, # Annotations for Human genes
+#                  keyType = 'ENSEMBL',
+#                  ont = "BP", # The GO three main aspects are: Molecular Function (MF), Cellular Component (CC) and Biological Process (BP)
+#                  pAdjustMethod = "BH",
+#                  pvalueCutoff  = 0.05)
+# 
+# ego
+```
+
+
+
+```{r GO_CC}
+ego <- enrichGO( gene = significant_de_genes,
+                 universe = unique(tx2gene$GENEID),
+                 OrgDb = org.Hs.eg.db,
+                 keyType = 'ENSEMBL',
+                 ont = "CC", # The GO three main aspects are: Molecular Function (MF), Cellular Component (CC) and Biological Process (BP)
+                 pAdjustMethod = "BH",
+                 pvalueCutoff  = 0.05)
+
+ego
+```
+
+
+#### Visualise enriched GO-CC terms
+
+```{r}
+p <- dotplot(ego, showCategory=20) + ggtitle("Top 20 Enriched Biological Processes")
+p
+```
+
+
+
+```{r GO_MF}
+# ego <- enrichGO( gene = significant_de_genes,
+#                  universe = unique(tx2gene$GENEID),
+#                  OrgDb = org.Hs.eg.db,
+#                  keyType = 'ENSEMBL',
+#                  ont = "MF", # The GO three main aspects are: Molecular Function (MF), Cellular Component (CC) and Biological Process (BP)
+#                  pAdjustMethod = "BH",
+#                  pvalueCutoff  = 0.05)
+# 
+# ego
+
+```
+
+
+#### Gene-Concept Network
+
+```{r}
+cnetplot(ego, foldChange=resOrdered$log2FoldChange[which(resOrdered$padj<0.5)])
+
+```
 
 
 
