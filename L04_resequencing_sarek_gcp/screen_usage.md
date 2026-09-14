@@ -23,5 +23,6 @@ screen -r <SCREEN_SESSION_ID>
 
 
 To detach (leave it running in the background), press:
-“Ctrl-A” and “d“
+
+“Ctrl+a” and “d“
 

@@ -4,43 +4,18 @@
 
 ## Set your working place
 
-- Create your VM instance from Google Cloud Console.
-
-Follow instructions in this [video](https://drive.google.com/file/d/1WQ3LYle15dkxdSXwZJTjM8sgmRDghkcg/view)
-
-- Install the required tools on your VM instance
-
-Follow instructions [here](https://github.com/santorsola-teaching/class-lab-adv-omics/tree/main/L03_google_cloud_nextflow_setup/gcp_setup_master_vm)
-
-
-
-## Upload your nextflow credentials key
-
-After the VM is spun up, open the VM terminal via SSH and upload your Nextflow credentials key (.json), and then type:
-
-```{bash}
-export GOOGLE_APPLICATION_CREDENTIALS=/home/YOUR_HOME_FOLDER/NAME-OF-YOUR-KEY.json
-```
-
-Upload may take several attempts, e.g. caused by SSH authentication failure. When the upload is successful, the message *"Transferred 1 item"* appears on the VM SSH terminal.
-
-To check your key path, type:
-
-```
-echo $GOOGLE_APPLICATION_CREDENTIALS
-```
-
+- Create your nextflow VM instance 
 
 
 ## Download the reference data
 
-On your VM SSH terminal, type:
+On your VM terminal, type:
 
 ```{bash}
 git clone https://github.com/msantorsola/datasets_reference_only.git
 ```
 
-to download the customised human reference files related to chromosome 21.
+to download the customised human reference files.
 
 
 
