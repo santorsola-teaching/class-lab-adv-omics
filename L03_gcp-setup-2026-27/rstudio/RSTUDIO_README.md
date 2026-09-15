@@ -58,7 +58,5 @@ Note: Authentication is disabled for course simplicity.
 ## Important
 
 - Save grant credits: always stop your VM when not in use to avoid depleting your Google Cloud grant balance:
-  ```
-gcloud compute instances stop rstudio-work-vm --zone=europe-west1-b
-```
+  ```gcloud compute instances stop rstudio-work-vm --zone=europe-west1-b```
 
