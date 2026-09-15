@@ -1,13 +1,13 @@
 ---
-title: "Differential Gene Expression Analysis (DEA) - reporting: datasets_LABOS_exercise1"
+title: "Differential Gene Expression Analysis (DEA)"
 author: "Mariangela Santorsola"
-date: "2024/25"
+date: "2026/27"
 output:
  html_document:
    toc: true
 params:
-    quant_path: /home/rstudio/salmon
-    tx2gene: /home/rstudio/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    quant_path: /PATH/TO/salmon
+    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
     
 ---
 
@@ -23,32 +23,6 @@ Understand the biological implications of expression changes, such as pathways, 
 
 
 ### Input data
-
-**Note** Please double-check the file paths for all inputs referenced in this document.
-
-- quant_path: Ensure that this params points to the directory "salmon" containing all individual sample folders:
-```
-.salmon                               # "salmon" directory created by nf-core/rnaseq 
-├── **control_rep1**                  # Directory for an individual sample in cases/controls (e.g. cases, controls)
-│   ├── aux_info
-│   │   ├── ambig_info.tsv
-│   │   ├── expected_bias.gz
-│   │   ├── fld.gz
-│   │   ├── meta_info.json
-│   │   ├── observed_bias.gz
-│   │   └── observed_bias_3p.gz
-│   ├── cmd_info.json
-│   ├── libParams
-│   │   └── flenDist.txt
-│   ├── lib_format_counts.json
-│   ├── logs
-│   │   └── salmon_quant.log
-│   ├── quant.genes.sf
-│   └── **quant.sf**
-[...]
-```
-You can upload the compressed Salmon directory (e.g., salmon.zip) directly. RStudio will automatically uncompress it upon upload.
-
 - tx2gene: ensure that you use the following file:: [gencode.v29.transcripts_no-vers_chr21_tx2gene.txt](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/Tutoring_class_recap/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt).
 
 
