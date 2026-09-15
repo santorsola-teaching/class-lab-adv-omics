@@ -4,10 +4,6 @@
 # Creates the RStudio Master VM with Docker service and Firewall
 # ==========================================================
 
-#!/bin/bash
-# ==========================================================
-# test.sh - SOLUZIONE DEFINITIVA
-# ==========================================================
 
 export VM_NAME="rstudio-master"
 export PROJECT_ID="$(gcloud config get-value project 2>/dev/null)"
