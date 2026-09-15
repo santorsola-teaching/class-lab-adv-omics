@@ -38,12 +38,12 @@ gcloud compute ssh nextflow-master --zone=europe-west1-b
 ```
 During the first connection, gcloud will automatically configure your SSH keys and ask a few interactive setup questions.
 
-Steps to follow during setup:
 
-Directory creation prompt:
 ```
 This tool needs to create the directory [.../.ssh] before being able to generate SSH keys.
-Do you want to continue (Y/n)?```  → Type ```Y``` and press ```Enter```.
+Do you want to continue (Y/n)?
+``` 
+ → Type ```Y``` and press ```Enter```.
 
 Passphrase prompts:
 ```Enter passphrase (empty for no passphrase):``` → Press ```Enter``` (leave empty).
