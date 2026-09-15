@@ -107,7 +107,8 @@ gs://unipv-bioinf-student-YOURNAME-data-main/sarek_results_dir_DATASET/annotatio
 ```
 To inspect your VCF file directly inside Google Cloud Shell without downloading it to your local machine, copy it to your current directory:
 
-```gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/sarek_results_dir_DATASET/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
+```
+gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/sarek_results_dir_DATASET/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
 ```
 
 
