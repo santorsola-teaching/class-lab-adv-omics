@@ -17,9 +17,12 @@ wget https://raw.githubusercontent.com/santorsola-teaching/class-lab-adv-omics/r
 
 Execute all commands directly in your **Google Cloud Shell** terminal.
 
-- 04_setup_rstudio_master.sh: Step 1 - Deploy Master VM & configure RStudio
-- 05_create_rstudio_image.sh: Step 2 - Save Master VM state as a custom Image
-- 06_launch_rstudio_from_image.sh: Step 3 - Launch working VM from saved image
+| Script | Step | Description |
+| :--- | :--- | :--- |
+| `04_setup_rstudio_master.sh` | **Step 1** | Deploy master VM & configure RStudio |
+| `05_create_rstudio_image.sh` | **Step 2** | Save Master VM state as a custom Image |
+| `06_launch_rstudio_from_image.sh` | **Step 3** | Launch working VM from saved image |
+
 
 ---
 
