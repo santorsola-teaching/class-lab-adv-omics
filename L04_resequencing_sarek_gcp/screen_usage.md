@@ -10,7 +10,7 @@ You’ll enter a new terminal environment where you can start your workflow, e.g
 nextflow run hello
 ```
 
-To detach and *leave it running in the background*, press:
+To detach and _leave it running in the background_, press:
 
 “Ctrl+a+d“
 
