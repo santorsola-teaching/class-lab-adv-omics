@@ -6,6 +6,15 @@ This repository contains automated scripts to deploy and manage a standardised R
 
 ## Execution pipeline
 
+To get started, download the setup scripts using wget:
+
+```
+wget https://raw.githubusercontent.com/santorsola-teaching/class-lab-adv-omics/refs/heads/main/L03_gcp-setup-2026-27/rstudio/04_setup_rstudio_master.sh
+wget https://raw.githubusercontent.com/santorsola-teaching/class-lab-adv-omics/refs/heads/main/L03_gcp-setup-2026-27/rstudio/05_create_rstudio_image.sh
+wget https://raw.githubusercontent.com/santorsola-teaching/class-lab-adv-omics/refs/heads/main/L03_gcp-setup-2026-27/rstudio/06_launch_rstudio_from_image.sh
+
+```
+
 Execute all commands directly in your **Google Cloud Shell** terminal.
 
 - 04_setup_rstudio_master.sh: Step 1 - Deploy Master VM & configure RStudio
