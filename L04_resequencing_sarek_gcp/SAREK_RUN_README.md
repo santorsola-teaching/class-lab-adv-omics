@@ -82,4 +82,32 @@ Required Replacements:
 Make sure to adjust these paths according to your project setup before running the command.
 
 
+# Verify and inspect sarek results
+
+Once the Nextflow pipeline execution completes, all generated outputs will be stored in your assigned Google Cloud Storage (GCS) bucket.
+
+## 1. Output directory structure
+
+Your results directory contains the following subfolders:
+
+- ```annotation```
+- ```collect-file```
+- ```csv```
+- ```multiqc```
+- ```pipeline_info```
+- ```preprocessing```
+- ```reports```
+- ```variant_calling```
+
+## 2. Locate and inspect the final VCF file
+The joint variant calling VCF file is located inside the annotation folder:
+
+```
+gs://unipv-bioinf-student-YOURNAME-data-main/sarek_results_dir_DATASET/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz
+```
+To inspect your VCF file directly inside Google Cloud Shell without downloading it to your local machine, copy it to your current directory:
+
+```gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/sarek_results_dir_DATASET/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
+```
+
 
