@@ -6,6 +6,16 @@ This repository contains automated scripts to deploy and manage a standardised N
 
 ## Execution pipeline
 
+To get started, download the setup scripts using wget:
+
+```
+# Download setup scripts directly to Cloud Shell
+wget https://raw.githubusercontent.com/santorsola-teaching/class-lab-adv-omics/main/L03_gcp-setup-2026-27/nextflow/01_setup_nextflow_master.sh
+wget https://raw.githubusercontent.com/santorsola-teaching/class-lab-adv-omics/main/L03_gcp-setup-2026-27/nextflow/02_create_nextflow_image.sh
+wget https://raw.githubusercontent.com/santorsola-teaching/class-lab-adv-omics/main/L03_gcp-setup-2026-27/nextflow/03_launch_nextflow_from_image.sh
+```
+
+
 Execute all commands directly in your **Google Cloud Shell** terminal.
 
 | Script | Step | Description |
