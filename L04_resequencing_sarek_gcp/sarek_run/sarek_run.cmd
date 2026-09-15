@@ -1,4 +1,4 @@
-## lines to run sarek
+## command lines to run sarek
 
 screen
 
@@ -12,7 +12,7 @@ nextflow run nf-core/sarek -r 3.4.4 \
 --tools haplotypecaller,snpeff \
 --skip_tools haplotypecaller_filter \
 --joint_germline \
---intervals datasets_LABOS_exercise1/germline/chr21_intervals.list \
+--intervals PATH/TO/germline/chr21_intervals.list \
 -c sarek_nextflow.config \
 -profile gls \
 --aligner bwa-mem2
