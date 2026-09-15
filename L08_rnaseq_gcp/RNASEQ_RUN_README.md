@@ -1,4 +1,4 @@
-# nf-core/sarek - read quantification
+# nf-core/rnaseq - read quantification
 
 ## Launch the working VM from the image
 Spin up your pre-configured Nextflow working environment directly from your custom image.
@@ -30,13 +30,14 @@ to download the customised human reference files.
 
 
 ## Download the assigned group data
+
 Each group will work on a specific resequencing dataset assigned by the instructor.
 
-Check your assigned group number and the repository link provided by the instructor (e.g.,``` [https://github.com/santorsola-teaching/dataset_group_X.git](https://github.com/santorsola-teaching/dataset_group_X.git)```).
+Check your assigned group number and the repository link provided by the instructor 
+(e.g.,``` [https://github.com/santorsola-teaching/dataset_group_X.git](https://github.com/santorsola-teaching/dataset_group_X.git)```).
 
-Download your assigned data by running git clone followed by your group's repository URL:
 
-# Replace <YOUR_GROUP_REPOSITORY_URL> with the link provided for your group
+Replace <YOUR_GROUP_REPOSITORY_URL> with the link provided for your group
 ```git clone <YOUR_GROUP_REPOSITORY_URL>```
 
 
@@ -82,7 +83,7 @@ Required Replacements:
 Make sure to adjust these paths according to your project setup before running the command.
 
 
-# Verify and inspect sarek results
+# Verify and inspect rnaseqresults
 
 Once the Nextflow pipeline execution completes, all generated outputs will be stored in your assigned Google Cloud Storage (GCS) bucket.
 
@@ -97,7 +98,7 @@ Your results directory contains the following main subfolders:
 The primary quantification results and count matrices are located inside the `salmon/` directory:
 
 - Sample quantification subdirectories: `control_rep1/`, `control_rep2/`, `control_rep3/`, `treatment_rep1/`, `treatment_rep2/`, `treatment_rep3/`
-- Exploratory & Quality Control output: `deseq2_qc/`
+- Exploratory & quality control output: `deseq2_qc/`
 - Key output matrices and objects:
   - `salmon.merged.gene_counts.tsv` & `salmon.merged.gene_counts.SummarizedExperiment.rds`
   - `salmon.merged.gene_counts_length_scaled.tsv` & `.rds`
