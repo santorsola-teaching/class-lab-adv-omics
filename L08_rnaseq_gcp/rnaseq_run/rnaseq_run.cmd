@@ -1,4 +1,4 @@
-## command lines to run rnaseq
+## Command lines to run nf-core/rnaseq must be executed in the VM terminal 
 
 screen
 

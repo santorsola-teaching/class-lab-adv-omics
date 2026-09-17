@@ -83,7 +83,7 @@ Required Replacements:
 Make sure to adjust these paths according to your project setup before running the command.
 
 
-# Verify and inspect rnaseqresults
+# Verify and inspect rnaseq results
 
 Once the Nextflow pipeline execution completes, all generated outputs will be stored in your assigned Google Cloud Storage (GCS) bucket.
 
