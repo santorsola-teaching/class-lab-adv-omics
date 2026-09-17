@@ -1,4 +1,4 @@
-## Command lines to run sarek must be executed in the VM terminal
+## Command lines to run nf-core/sarek must be executed in the VM terminal
 
 screen
 
