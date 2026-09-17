@@ -33,13 +33,10 @@ to download the customised human reference files.
 
 Each group will work on a specific resequencing dataset assigned by the instructor.
 
-Check your assigned group number and the repository link provided by the instructor 
-(e.g.,``` [https://github.com/santorsola-teaching/dataset_group_X.git](https://github.com/santorsola-teaching/dataset_group_X.git)```).
+Check your assigned group number and download the corresponding datasets by running ```git clone``` followed by your group's repository URL.
 
-
-Replace <YOUR_GROUP_REPOSITORY_URL> with the link provided for your group
-```git clone <YOUR_GROUP_REPOSITORY_URL>```
-
+For example, group 1 would run:
+```git clone https://github.com/santorsola-teaching/datasets_group1.git```
 
 ### Check the INPUT samplesheet 
 
