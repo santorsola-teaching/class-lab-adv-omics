@@ -1,4 +1,4 @@
-## command lines to run sarek
+## Command lines to run sarek must be executed in the VM terminal
 
 screen
 

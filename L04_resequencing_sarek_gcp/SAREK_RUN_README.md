@@ -36,7 +36,6 @@ Check your assigned group number and the repository link provided by the instruc
 
 Download your assigned data by running git clone followed by your group's repository URL:
 
-# Replace <YOUR_GROUP_REPOSITORY_URL> with the link provided for your group
 ```git clone <YOUR_GROUP_REPOSITORY_URL>```
 
 
