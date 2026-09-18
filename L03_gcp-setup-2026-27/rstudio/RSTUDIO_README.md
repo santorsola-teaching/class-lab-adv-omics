@@ -36,7 +36,7 @@ Command:
 sh 04_setup_rstudio_master.sh
 ```
 
-Wait ~2 minutes for the Docker container image to download and start.
+> Wait ~2 minutes for the Docker container image to download and start.
 
 ---
 
@@ -48,7 +48,7 @@ sh 05_create_rstudio_image.sh
 ```
 
 
-Wait ~2 minutes until the image creation process finishes.
+> Wait ~2 minutes until the image creation process finishes.
 
 ---
 
@@ -63,12 +63,12 @@ sh 06_launch_rstudio_from_image.sh
 Navigate to the external IP address printed at the end of the script output:
 ```http://<EXTERNAL_IP>:8787``` and access via web browser.
 
-Note: Authentication is disabled for course simplicity.
 
 ---
 
 ## Important
 
-- Save grant credits: always stop your VM when not in use to avoid depleting your Google Cloud grant balance:
-  ```gcloud compute instances stop rstudio-work-vm --zone=europe-west1-b```
+- Save grant credits: always stop your VM when not in use to avoid depleting your Google Cloud grant balance.
+Example command:
+ ```gcloud compute instances stop rstudio-work-vm --zone=europe-west1-b```
 
