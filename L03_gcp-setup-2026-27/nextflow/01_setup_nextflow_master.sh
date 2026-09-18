@@ -65,5 +65,5 @@ rm -f /tmp/startup.sh
 echo "--------------------------------------------------------"
 echo "VM creation complete!"
 echo "Wait ~2-3 minutes for background installation to finish."
-echo "Connect with: gcloud compute ssh \({VM_NAME} --zone=\){VM_ZONE}"
+echo "Connect with: gcloud compute ssh ${VM_NAME} --zone=${VM_ZONE}"
 echo "--------------------------------------------------------"
