@@ -144,7 +144,7 @@ Once updated, your shell will automatically log into the VM and the prompt will 
 ```
 gcloud compute instances delete nextflow-master --zone=europe-west1-b --quiet
 
-gcloud compute instances stop nextflow-work-vm --zone=europe-west1-b 
+gcloud compute instances stop nextflow-work-vm --zone=europe-west1-b --quiet 
 
 ```
 
