@@ -62,20 +62,20 @@ Passphrase prompts:
 
 > After pressing ```Enter```, you will see an output similar to this, showing key generation and project metadata update:
 > ```
-Generating public/private rsa key pair.
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
-Your identification has been saved in /home/user/.ssh/google_compute_engine
-Your public key has been saved in /home/user/.ssh/google_compute_engine.pub
-The key fingerprint is:
-SHA256:... user@cloud-shell
-The key's randomart image is:
-+---[RSA 3072]----+
-|    =oo+ .       |
-|    . @. +       |
-+----[SHA256]-----+
-Updating project ssh metadata...working..Updated [...]
-```
+> Generating public/private rsa key pair.
+> Enter passphrase (empty for no passphrase): 
+> Enter same passphrase again: 
+> Your identification has been saved in /home/user/.ssh/google_compute_engine
+> Your public key has been saved in /home/user/.ssh/google_compute_engine.pub
+> The key fingerprint is:
+> SHA256:... user@cloud-shell
+> The key's randomart image is:
+> +---[RSA 3072]----+
+> |    =oo+ .       |
+> |    . @. +       |
+> +----[SHA256]-----+
+> Updating project ssh metadata...working..Updated [...]
+> ```
 
 
 > Upon successful connection, you will see a host confirmation message:
