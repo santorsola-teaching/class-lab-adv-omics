@@ -43,6 +43,10 @@ Wait ~2–3 minutes for system packages and Nextflow installation to complete.
 
 
 #### Connect to your VM via ssh
+
+> IMPORTANT: > The deployment script `01_setup_nextflow_master.sh` prints the **exact SSH command** at the end of its output. Look at your terminal output and copy that specific command, as the zone may vary depending on GCP resource availability
+
+Example command:
 ```
 gcloud compute ssh nextflow-master --zone=europe-west1-b
 ```
@@ -56,8 +60,8 @@ Passphrase prompts:
 ```Enter same passphrase again:``` → Press ```Enter``` again.
 
 
-After pressing ```Enter```, you will see an output similar to this, showing key generation and project metadata update:
-```
+> After pressing ```Enter```, you will see an output similar to this, showing key generation and project metadata update:
+> ```
 Generating public/private rsa key pair.
 Enter passphrase (empty for no passphrase): 
 Enter same passphrase again: 
@@ -74,8 +78,8 @@ Updating project ssh metadata...working..Updated [...]
 ```
 
 
-Upon successful connection, you will see a host confirmation message:
-```
+> Upon successful connection, you will see a host confirmation message:
+> ```
 Warning: Permanently added 'compute.6916671995707544335' (ED25519) to the list of known hosts.
 ```
 
@@ -92,7 +96,16 @@ java -version
 
 nextflow run hello
 ```
+
+> IMPORTANT  — Exit the VM before proceeding.
+
+> You are currently connected inside the nextflow-master VM.
+
+> Type ```exit``` and press ```Enter``` (repeat if necessary) until your shell prompt returns to Cloud Shell.
+
+
 ### Step 2: Save reusable custom image
+
 
 Command:
 ```
@@ -102,8 +115,8 @@ Wait ~2 minutes until the image creation process finishes.
 
 ---
 
-When completed, you will see:
-```
+> When completed, you will see:
+> ```
 Image nextflow-custom-image created successfully!
 You can now launch new Nextflow VMs instantly.
 ```
@@ -131,7 +144,7 @@ Once updated, your shell will automatically log into the VM and the prompt will 
 ```
 gcloud compute instances delete nextflow-master --zone=europe-west1-b --quiet
 
-gcloud compute instances stop nextflow-work-vm --zone=europe-west1-
+gcloud compute instances stop nextflow-work-vm --zone=europe-west1-b 
 
 ```
 
