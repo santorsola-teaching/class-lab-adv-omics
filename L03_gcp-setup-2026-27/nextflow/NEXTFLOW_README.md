@@ -37,14 +37,14 @@ Command:
 sh 01_setup_nextflow_master.sh
 ```
 
-Wait ~2–3 minutes for system packages and Nextflow installation to complete.
+> Wait ~2–3 minutes for system packages and Nextflow installation to complete.
 
 ---
 
 
 #### Connect to your VM via ssh
 
-> IMPORTANT: > The deployment script `01_setup_nextflow_master.sh` prints the **exact SSH command** at the end of its output. Look at your terminal output and copy that specific command, as the zone may vary depending on GCP resource availability
+> IMPORTANT: The deployment script `01_setup_nextflow_master.sh` prints the **exact SSH command** at the end of its output. Look at your terminal output and copy that specific command, as the zone may vary depending on GCP resource availability
 
 Example command:
 ```
@@ -80,14 +80,15 @@ Passphrase prompts:
 
 > Upon successful connection, you will see a host confirmation message:
 > ```
-Warning: Permanently added 'compute.6916671995707544335' (ED25519) to the list of known hosts.
-```
+> Warning: Permanently added 'compute.6916671995707544335' (ED25519) to the list of known hosts.```
 
 #### Verify tool installation:
+
 Check startup log progress inside the VM:
 ```
 sudo tail -f /var/log/startup-nextflow.log
 ```
+
 Once completed, test the environment setup:
 ```
 git --version
@@ -117,9 +118,8 @@ Wait ~2 minutes until the image creation process finishes.
 
 > When completed, you will see:
 > ```
-Image nextflow-custom-image created successfully!
-You can now launch new Nextflow VMs instantly.
-```
+> Image nextflow-custom-image created successfully!
+> You can now launch new Nextflow VMs instantly.```
 
 ### Step 3: Launch Working VM from Image
 Spin up your pre-configured Nextflow working environment directly from your custom image for daily practical work.
