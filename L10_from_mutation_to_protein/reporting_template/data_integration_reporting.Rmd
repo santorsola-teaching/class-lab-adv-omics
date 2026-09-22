@@ -1,30 +1,27 @@
 ---
 title: "Resequencing and RNAseq data integration: datasets_LABOS_exercise1"
 author: "Mariangela Santorsola"
-date: "2025/2026"
+date: "2026/2027"
 output:
  html_document:
    toc: true
 params:
-    quant_path: /home/rstudio/class_material/salmon
-    tx2gene: /home/rstudio/class_material/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
-    vcf:  /home/rstudio/class_material/joint_germline_recalibrated_snpEff.ann.vcf.gz
-    ext_funcs:  /home/rstudio/class_material/extract_annotations_full.R
+    quant_path: /PATH/TO/salmon
+    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    vcf:  /PATH/TO/joint_germline_recalibrated_snpEff.ann.vcf.gz
+    ext_funcs:  /PATH/TO/extract_annotations_full.R
     
 ---
 
-# Assignment goal
-
-
-*Identification of Variants in Differentially Expressed Genes with Significant Clinical Relevance* 
+# Assignment goal: Identification of variants in Differentially Expressed Genes with significant clinical relevance 
 
 
 Now that you have processed both the transcriptomic (DEGs) and genomic (VCF) datasets, your goal is to **bridge both omics layers** to pinpoint top-priority candidate variants.
 
-**Your Integration Challenge:**
+Your integration challenge:
 Filter and merge your datasets to isolate variants that satisfy **all** three criteria:
 
-1. **Case-Specific Genotype:** Present in the case sample (`case_case1`), but absent/reference in the control (`control_control1`).
-2. **Functional Impact:** High-severity mutations (`missense_variant` with `"MODERATE"` or `"HIGH"` impact).
-3. **Cross-Omics Convergence:** Mutated genes that are **also differentially expressed** in your RNA-seq analysis.
+1. Case-specific variants: Present in the case sample (`case_case1`), but absent/reference in the control (`control_control1`).
+2. Functional impact: High-severity mutations (`missense_variant` with `"MODERATE"` or `"HIGH"` impact).
+3. Cross-Omics Convergence: Mutated genes which are also differentially expressed.
 
