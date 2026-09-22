@@ -124,29 +124,11 @@ VEP.tab <- filteredVars %>%
 write.table(VEP.tab, "variants_to_VEP.txt", col.names = F, row.names = F, quote = FALSE)
 ```
 
-Copy the content of the table just written in your home directory "variants_to_VEP.txt" and paste in [VEP](https://www.ensembl.org/Homo_sapiens/Tools/VEP). Run and save results obtained as "TXT". Upload those results in the home like you did for the vcf file.
 
-### Alphamissense Pathogenicity Predictions of filtered variants
-After the VEP annotation, you need to search the genes and related protein variants using the Alphamissense portal, you know from the related class.
+### Exercise: Enriching variant annotations with VEP
 
-```{r alphamissense, eval=TRUE, echo=FALSE, include=TRUE}
+Now it’s your turn! Ensembl VEP outputs rich functional annotations—including **AlphaMissense** pathogenicity predictions for missense variants.
 
-vepped_variants <- "vepped_variants.txt" ### replace with the vepped .txt output
-VEP.res <- read.table(vepped_variants, header = T, sep ='\t',comment.char = "") # the file name is randomly chosen when you download it from VEP
-
-```
-
-
-```{r alphamissense_filtering, eval=TRUE, echo=TRUE, include=TRUE}
-selectedVars_table <- VEP.res %>% filter(am_class %in% c("ambiguous", "likely_pathogenic")) 
-selectedVars_table %>% 
-  select(Location, Consequence, SYMBOL, SIFT, PolyPhen, am_class, am_pathogenicity, LOEUF) %>% 
-  knitr::kable()
-
-
-```
-
-```{r save_filtered_VEP_results, eval=TRUE, echo=TRUE, include=TRUE}
-write.table(selectedVars_table, "prioritized_variants.txt", row.names = F, quote = FALSE)
-```
+**Your Challenge:**
+Import your VEP output table into R, **add to your variants the additional relevant annotations from VEP** (e.g., SIFT, PolyPhen, AlphaMissense class/score, LOEUF), filter for prioritized variants, and include the final result table in your output.
 
