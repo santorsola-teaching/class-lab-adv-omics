@@ -17,6 +17,27 @@ Your shell will automatically log into the VM and the prompt will change to ```u
 
 
 
+## Download your group dataset & enter the working directory
+Each group will work on a specific resequencing dataset assigned by the instructor.
+
+Check your assigned group number and download your datasets using ```git clone``` with your assigned group number, then navigate into that directory immediately:
+
+Example for group 1:
+```git clone https://github.com/santorsola-teaching/datasets_group1.git```
+
+
+Move inside your group directory:
+```{bash}
+cd datasets_group1
+```
+
+Verify your current directory structure by listing the files:
+```{bash}
+ls
+```
+
+> Important: All subsequent steps (downloading references, editing configs, running Sarek) must be executed from inside this directory (e.g., datasets_group1).
+
 ## Download the reference data
 
 On your VM terminal, type:
@@ -27,15 +48,6 @@ git clone https://github.com/msantorsola/datasets_reference_only.git
 
 to download the customised human reference files.
 
-
-
-## Download the assigned group data
-Each group will work on a specific resequencing dataset assigned by the instructor.
-
-Check your assigned group number and download the corresponding datasets by running ```git clone``` followed by your group's repository URL.
-
-For example, group 1 would run:
-```git clone https://github.com/santorsola-teaching/datasets_group1.git```
 
 
 ### Check the INPUT samplesheet 
