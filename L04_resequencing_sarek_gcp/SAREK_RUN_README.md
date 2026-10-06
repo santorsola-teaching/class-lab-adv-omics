@@ -23,7 +23,10 @@ Each group will work on a specific resequencing dataset assigned by the instruct
 Check your assigned group number and download your datasets using ```git clone``` with your assigned group number, then navigate into that directory immediately:
 
 Example for group 1:
-```git clone https://github.com/santorsola-teaching/datasets_group1.git```
+
+```{bash}
+git clone https://github.com/santorsola-teaching/datasets_group1.git
+```
 
 
 Move inside your group directory:
