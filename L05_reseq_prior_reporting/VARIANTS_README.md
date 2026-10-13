@@ -28,5 +28,12 @@ inside the RStudio Server interface.
 
 - Open ```report_sarek.Rmd``` inside RStudio.
 - Verify that the file paths pointing to the VCF in your mounted bucket (```/home/rstudio/bucket_data```) and the R helper functions are correct.
+
+> Tip: If you want to inspect the compressed VCF file directly from the command line, open the Terminal tab in RStudio and run:
+
+> ```
+> zcat /PATH/TO/vcf.gz | head -n 50
+> ```
+
 - Run the code chunks to execute the analysis and click **Knit** to generate the final HTML report.
 
