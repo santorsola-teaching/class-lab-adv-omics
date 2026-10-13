@@ -1,5 +1,5 @@
 so_consequences <- readRDS(
-    url("https://raw.githubusercontent.com/lescai-teaching/datasets_reference_only/main/annotations/ranked_ensembl_consequences.RData", 
+    url("https://raw.githubusercontent.com/msantorsola/datasets_reference_only/main/annotations/ranked_ensembl_consequences.RData", 
         "rb")
 )
 
