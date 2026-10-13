@@ -125,19 +125,24 @@ write.table(VEP.tab, "variants_to_VEP.txt", col.names = F, row.names = F, quote 
 ```
 
 Tasks and challenges
-1. Unpack the raw snpEff annotations (ANN Field)
+
+### Objective
+Expand the provided R Markdown script by parsing raw SnpEff annotations, integrating Ensembl VEP predictions, and applying a multi-tiered filtering protocol to identify a shortlist of prioritized pathogenic variants potentially driving the simulated patient phenotype.
+
+
+### 1. Unpack the raw snpEff annotations (ANN Field)
 Print the complete, unparsed ANN string for the first 3 variants in your console/report.
 
 Identify the pipe-separated (|) internal sub-fields (e.g., Allele, Annotation, Impact, Gene_Name, Feature_ID) and write a brief comment explaining why extracting only the most severe transcript annotation (get_most_severe_*) is necessary for downstream tabular analysis.
 
-2. VEP data integration and joining
+### 2. VEP data integration and joining
 Run the exported variants_to_VEP.txt through Ensembl VEP (web) ensuring AlphaMissense, SIFT, PolyPhen, and gnomAD LOEUF metrics are selected.
 
 Import the resulting VEP output file into R.
 
 Clean and map the coordinate columns (Chr, Position, Ref, Alt) to match your original variants data frame, and merge the VEP predictors into your dataset.
 
-3. Multi-metric prioritization filtering
+### 3. Multi-metric prioritization filtering
 Create a refined candidate table by defining a multi-tiered filtering scheme, e.g.,
 
 Genotype: case_case1 in c("0/1", "1/1", "0|1", "1|1") AND control_control1 in c("0/0", "0|0").
@@ -146,6 +151,6 @@ Constraint: Gene LOEUF < 0.35 (highly constrained / haploinsufficient).
 
 Pathogenicity Score: AlphaMissense class == "likely_pathogenic" (or score > 0.564) OR (SIFT == "deleterious" AND PolyPhen == "probably_damaging").
 
-4. Reporting - Knit to HTML
+### 4. Reporting - Knit to HTML
 Compile the complete analysis into a self-contained HTML report (knit button in RStudio) and ensure all tables render properly without text overflow.
 
