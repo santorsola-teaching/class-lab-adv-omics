@@ -57,7 +57,7 @@ Spin up an active RStudio instance from your saved image for daily practical wor
 
 Command:
 ```
-sh 06_launch_rstudio_from_image.sh
+bash  06_launch_rstudio_from_image.sh
 ```
 
 Navigate to the external IP address printed at the end of the script output:
