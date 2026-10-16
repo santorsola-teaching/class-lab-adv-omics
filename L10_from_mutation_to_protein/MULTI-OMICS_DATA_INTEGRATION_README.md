@@ -1,4 +1,4 @@
-# Integrated Omics Analysis: From Mutations to Functional Impact
+# Integrated omics analysis: from mutations to functional impact
 
 This assignment explores the integration of DNA resequencing and RNAseq data to discover candidate disease-causing variants. 
 
@@ -32,7 +32,7 @@ Integrate DNA resequencing outputs with RNAseq results to answer the questions:
 - How are variant severity classes distributed between up-regulated and down-regulated genes?
 - Which prioritised pathogenic mutations map directly to significantly deregulated genes in the case sample?
 
-### 5. Predicting mutation impact on protein structure & Function
+### 5. Predicting mutation impact on protein structure & function
 For the pathogenic candidate variants identified within deregulated genes: 
 - What is the predicted impact of the candidate mutation on the protein structure?
 
