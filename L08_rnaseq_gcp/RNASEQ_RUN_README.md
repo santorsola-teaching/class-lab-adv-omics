@@ -135,7 +135,7 @@ The primary quantification results and count matrices are located inside the `sa
   - `tx2gene.tsv`
 
 
-To inspect the matrix of a sample read counts directly inside the VM (or Google Cloud Shell terminal), copy it to your current directory:
+To inspect the matrix of transcript read counts directly inside the terminal of your VM or Google Cloud Shell, copy it to your current directory:
 
 ```
 gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/rnaseq_results_dir_g1_1/salmon/control_rep1/quant.sf .
