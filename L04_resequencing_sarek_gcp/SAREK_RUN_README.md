@@ -111,6 +111,7 @@ nextflow run nf-core/sarek -r 3.4.4 \
 
 Once the Nextflow pipeline execution completes, all generated outputs will be stored in your assigned Google Cloud Storage (GCS) bucket.
 
+
 ## 1. Output directory structure
 
 Your results directory contains the following subfolders:
