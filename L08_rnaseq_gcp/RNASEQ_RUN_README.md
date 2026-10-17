@@ -108,7 +108,13 @@ Your results directory contains the following main subfolders:
 
 The primary quantification results and count matrices are located inside the `salmon/` directory:
 
-- Sample quantification subdirectories: `control_rep1/`, `control_rep2/`, `control_rep3/`, `treatment_rep1/`, `treatment_rep2/`, `treatment_rep3/`
+- Sample quantification subdirectories: 
+	- `control_rep1/`
+	- `control_rep2/`
+	- `control_rep3/`
+	- `treatment_rep1/`
+	- `treatment_rep2/`
+	- `treatment_rep3/`
 - Exploratory & quality control output: `deseq2_qc/`
 - Key output matrices and objects:
   - `salmon.merged.gene_counts.tsv` & `salmon.merged.gene_counts.SummarizedExperiment.rds`
