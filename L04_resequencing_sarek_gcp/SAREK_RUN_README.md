@@ -94,7 +94,7 @@ Required Replacements:
 
 Make sure to adjust these paths according to your project setup before running the command.
 
-Important note for troubleshooting
+### Important note for troubleshooting
 
 If the execution fails due to an error (e.g., file path issue, syntax error in configuration, or temporary network failure), fix the issue and re-run the exact same command with the -resume flag added at the end:
 
