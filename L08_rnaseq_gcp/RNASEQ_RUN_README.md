@@ -153,8 +153,15 @@ gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/rnaseq_results_dir_g1_1/s
 
 ```
 
+To interactively scroll through the entire table in your terminal, open it with:
 
-> ```
+```{bash}
+less -S quant.sf
+```{bash}
+
+
+
+> ```{bash}
 > Name            Length  EffectiveLength TPM     NumReads
 > ENST00000624081 513     262.924 1295.330019     297.211
 > ENST00000612610 1162    911.923 364.340105      289.948
@@ -164,9 +171,10 @@ gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/rnaseq_results_dir_g1_1/s
 > ENST00000623795 2238    1987.923        501.013206      869.167
 > ENST00000624810 411     160.924 794.570121      111.585
 > ENST00000625036 318     68.167  1466.916238     87.263
+
 ```
 
-Key Columns Description:
+Column description:
 - `Name`: Ensembl transcript ID.
 - `Length`: Sequence length of the transcript in base pairs.
 - `EffectiveLength`: Computed effective length taking into account fragment length distribution and sequence bias.
