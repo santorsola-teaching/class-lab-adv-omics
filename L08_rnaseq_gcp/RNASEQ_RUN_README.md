@@ -146,6 +146,9 @@ The primary quantification results and count matrices are located inside the `sa
   - `tx2gene.tsv`
 
 
+
+## 2. Locate and inspect the read count matrix 
+
 To inspect the matrix of transcript read counts directly inside the terminal of your VM or Google Cloud Shell, copy it to your current directory:
 
 ```
