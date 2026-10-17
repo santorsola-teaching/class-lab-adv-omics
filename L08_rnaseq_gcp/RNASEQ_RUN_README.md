@@ -110,6 +110,13 @@ The primary quantification results and count matrices are located inside the `sa
 
 - Sample quantification subdirectories: 
 	- `control_rep1/`
+		- `aux_info/`
+		- `cmd_info.json`
+		- `libParams/`
+		- `lib_format_counts.json`
+		- `logs/`
+		- `quant.genes.sf`
+		- `quant.sf`
 	- `control_rep2/`
 	- `control_rep3/`
 	- `treatment_rep1/`
