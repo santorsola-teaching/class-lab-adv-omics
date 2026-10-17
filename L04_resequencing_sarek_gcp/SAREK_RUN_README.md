@@ -118,7 +118,7 @@ The joint variant calling VCF file is located inside the annotation folder:
 ```
 gs://unipv-bioinf-student-YOURNAME-data-main/sarek_results_dir_DATASET/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz
 ```
-To inspect your VCF file directly inside Google Cloud Shell without downloading it to your local machine, copy it to your current directory:
+To inspect the VCF inside the terminal of your VM or Google Cloud Shell, copy it to your current directory:
 
 ```
 gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/sarek_results_dir_DATASET/annotation/haplotypecaller/joint_variant_calling/joint_germline_recalibrated_snpEff.ann.vcf.gz .
