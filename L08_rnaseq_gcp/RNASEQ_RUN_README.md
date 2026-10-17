@@ -84,7 +84,7 @@ When using ```vim``` to edit files on terminal, make sure to click ```i``` for I
 
 ## Launch nf-core/rnaseq: read quantification
 
-For detailed command-line instructions to run rnaseq, refer to see [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L08_rnaseq_gcp/rnaseq_run/rnaseq_run.cmd)
+For detailed command-line instructions to run rnaseq, see  [here](https://github.com/santorsola-teaching/class-lab-adv-omics/blob/main/L08_rnaseq_gcp/rnaseq_run/rnaseq_run.cmd)
 
 
 Required Replacements:
