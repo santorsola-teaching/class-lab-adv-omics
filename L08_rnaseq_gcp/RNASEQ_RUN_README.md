@@ -94,6 +94,17 @@ Required Replacements:
 Make sure to adjust these paths according to your project setup before running the command.
 
 
+# Important note for troubleshooting
+
+If the execution fails due to an error (e.g., file path issue, syntax error in configuration, or temporary network failure), fix the issue and re-run the exact same command with the -resume flag added at the end:
+
+
+```{bash}
+nextflow run nf-core/rnaseq -r 3.16.1 \
+[...] \
+-resume
+```
+
 # Verify and inspect rnaseq results
 
 Once the Nextflow pipeline execution completes, all generated outputs will be stored in your assigned Google Cloud Storage (GCS) bucket.
@@ -155,11 +166,12 @@ gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/rnaseq_results_dir_g1_1/s
 > ENST00000625036 318     68.167  1466.916238     87.263
 ```
 
-> Key Columns Description:
-> - `Name`: Ensembl transcript ID.
-> - `Length`: Sequence length of the transcript in base pairs.
-> - `EffectiveLength`: Computed effective length taking into account fragment length distribution and sequence bias.
-> - `TPM`: Transcripts Per Million (normalised measure of transcript abundance).
-> - `NumReads`: Estimated number of reads originating from this transcript (raw read counts used as input for DESeq2/tximport).
+Key Columns Description:
+- `Name`: Ensembl transcript ID.
+- `Length`: Sequence length of the transcript in base pairs.
+- `EffectiveLength`: Computed effective length taking into account fragment length distribution and sequence bias.
+- `TPM`: Transcripts Per Million (normalised measure of transcript abundance).
+- `NumReads`: Estimated number of reads originating from this transcript (raw read counts used as input for DESeq2/tximport).
+
 
 
