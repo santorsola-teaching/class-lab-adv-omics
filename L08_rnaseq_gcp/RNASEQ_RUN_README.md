@@ -157,11 +157,11 @@ To interactively scroll through the entire table in your terminal, open it with:
 
 ```{bash}
 less -S quant.sf
-```{bash}
+```
 
 
 
-> ```{bash}
+> ```
 > Name            Length  EffectiveLength TPM     NumReads
 > ENST00000624081 513     262.924 1295.330019     297.211
 > ENST00000612610 1162    911.923 364.340105      289.948
