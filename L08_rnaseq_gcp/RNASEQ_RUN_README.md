@@ -133,3 +133,33 @@ The primary quantification results and count matrices are located inside the `sa
   - `salmon.merged.transcript_tpm.tsv`
   - `salmon.merged.transcript_lengths.tsv`
   - `tx2gene.tsv`
+
+
+To inspect the matrix of a sample read counts directly inside the VM (or Google Cloud Shell terminal), copy it to your current directory:
+
+```
+gsutil cp gs://unipv-bioinf-student-YOURNAME-data-main/rnaseq_results_dir_g1_1/salmon/control_rep1/quant.sf .
+
+```
+
+
+> ```
+> Name            Length  EffectiveLength TPM     NumReads
+> ENST00000624081 513     262.924 1295.330019     297.211
+> ENST00000612610 1162    911.923 364.340105      289.948
+> ENST00000620481 816     565.923 947.732436      468.056
+> ENST00000623960 3274    3023.923        555.359898      1465.547
+> ENST00000623903 998     747.923 544.097721      355.131
+> ENST00000623795 2238    1987.923        501.013206      869.167
+> ENST00000624810 411     160.924 794.570121      111.585
+> ENST00000625036 318     68.167  1466.916238     87.263
+```
+
+> Key Columns Description:
+> - `Name`: Ensembl transcript ID.
+> - `Length`: Sequence length of the transcript in base pairs.
+> - `EffectiveLength`: Computed effective length taking into account fragment length distribution and sequence bias.
+> - `TPM`: Transcripts Per Million (normalised measure of transcript abundance).
+> - `NumReads`: Estimated number of reads originating from this transcript (raw read counts used as input for DESeq2/tximport).
+
+
