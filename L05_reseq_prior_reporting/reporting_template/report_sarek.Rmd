@@ -96,7 +96,6 @@ filteredVars <- variants %>%
   filter(
     control_control1 %in% c("0/0", "0|0") &               # accept both phased and unphased reference genotypes
     impact %in% c("MODERATE", "HIGH") &
-    # ens %in% significant_de_genes &                   # functional impact filter
     consequence == "missense_variant"                    # biologically relevant variant type
   )
 
