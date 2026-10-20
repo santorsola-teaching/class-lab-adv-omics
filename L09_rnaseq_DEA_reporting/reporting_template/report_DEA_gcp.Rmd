@@ -6,7 +6,7 @@ output:
  html_document:
    toc: true
 params:
-    quant_path: /PATH/TO/rnaseq_results_dir_g1_1/salmon
+    quant_path: /PATH/TO/salmon
     tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
     
 ---
