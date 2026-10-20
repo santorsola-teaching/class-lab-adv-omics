@@ -6,8 +6,8 @@ output:
  html_document:
    toc: true
 params:
-    quant_path: ~/bucket_data/rnaseq_results_dir_g1_1/salmon
-    tx2gene: ~/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
+    quant_path: /PATH/TO/rnaseq_results_dir_g1_1/salmon
+    tx2gene: /PATH/TO/gencode.v29.transcripts_no-vers_chr21_tx2gene.txt
     
 ---
 
@@ -16,12 +16,12 @@ params:
 Load R libraries
 
 ```{r packages, eval=TRUE, echo=FALSE}
-library(DESeq2)
+library(DESeq2)             # For differential expression analysis
 library(tximport)
 library(tidyverse)
 library(pheatmap)
-library(clusterProfiler)
-library(DOSE)
+library(clusterProfiler)    # For enrichment analysis
+#library(DOSE)
 library(org.Hs.eg.db)
 ```
 
@@ -70,9 +70,7 @@ names(files) <- dataset$sample
 Write an R command to read the quantification table (quant.sf) of the first sample.
 
 
-
-
-The function _tximport_ imports transcript-level quantification estimates (abundances, counts, and lengths) from external tools (e.g., Salmon) and summarizes them to the gene-level, preparing length-adjusted count matrices for downstream differential expression analysis with DESeq2.
+## Importing quantification data with tximport
 
 ```{r}
 txi <- tximport(files, type = "salmon", tx2gene = tx2gene)
@@ -81,6 +79,11 @@ rownames(dataset) <- colnames(txi$counts)
 
 ```
 
+
+The function _tximport_ imports transcript-level quantification estimates (abundances, counts, and lengths) from external tools (e.g., Salmon) and aggregates them to the gene-level counts, preparing length-adjusted count matrices (accounting for differential isoform usage across conditions) for downstream differential expression analysis with DESeq2.
+
+
+
 ```{r}
 # Inspect the elements contained within the tximport object
 ls(txi)
@@ -88,11 +91,12 @@ ls(txi)
 # Inspect the estimated gene-level read counts
 head(txi$counts)
 ```
+
 Main Components of the txi Object:
 - _counts_: Estimated read counts aggregated at the gene level (used as input for differential expression tools like DESeq2).
 - _abundance_: Normalized transcript expression values expressed in Transcripts Per Million (TPM).
 - _length_: Sample-specific effective gene lengths (weighted averages based on expressed transcript isoforms).
-- _countsFromAbundance_: Indicates whether and how counts were scaled from abundances ("no" by default).
+- _countsFromAbundance_: Indicates whether and how counts were scaled from abundances ("no" by default). It directly sum the transcript counts for each gene.  
 
 
 ##  Construct a DESeqDataSet from the txi object and sample information in dataset
@@ -100,12 +104,12 @@ Main Components of the txi Object:
 ```{r}
 dds <- DESeqDataSetFromTximport(txi, dataset, ~condition)
 
-
-#x <- assays(dds)$counts
-#x[rownames(x) == 'ENSG00000141956',]
 ```
 
-### Inspecting the DESeqDataSet Object
+DESeqDataSetFromTximport combines estimated read counts, effective gene length matrices, and experimental metadata into a single data container (dds). The formula ~condition tells DESeq2 to model expression differences based on the condition variable.
+
+
+### Inspecting the DESeqDataSet object
 
 When constructed using DESeqDataSetFromTximport(), the dds object incorporates both the estimated read counts and the effective gene lengths (used as normalization factors). All internal matrices are stored as assays.
 
@@ -295,7 +299,8 @@ significant_de_genes <- sign_de_genes_table$Gene
 ```
 
 
-## Gene Ontology enrichment analysis
+## Over-representation analysis on GO terms
+
 
 Gene Ontology enrichment identifies overrepresented biological terms within your set of differentially expressed genes (DEGs) compared to all tested genes in the dataset (background/universe).
 
@@ -310,7 +315,7 @@ ego_bp <- enrichGO( gene = significant_de_genes, # Foreground genes: DEGs
                  OrgDb = org.Hs.eg.db, # Annotations for Human genes
                  keyType = 'ENSEMBL',
                  ont = "BP", # The GO three main aspects are: Molecular Function (MF), Cellular Component (CC) and Biological Process (BP)
-                 pAdjustMethod = "BH",
+                 pAdjustMethod = "BH",  # Benjamini-Hochberg FDR correction
                  pvalueCutoff  = 0.05)
 
 
