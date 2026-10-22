@@ -21,7 +21,20 @@ Now that you have processed both the transcriptomic (DEGs) and genomic (VCF) dat
 Your integration challenge:
 Filter and merge your datasets to isolate variants that satisfy **all** three criteria:
 
+
+
 1. Case-specific variants: Present in the case sample (`case_case1`), but absent/reference in the control (`control_control1`).
 2. Functional impact: High-severity mutations (`missense_variant` with `"MODERATE"` or `"HIGH"` impact).
 3. Cross-Omics Convergence: Mutated genes which are also differentially expressed.
+
+Example code:
+
+```{r filterVariants, eval=TRUE, echo=TRUE, include=TRUE}
+filteredVars = variants %>%
+  filter(control_control1 == "0/0" & 
+            (impact == "MODERATE" | impact == "HIGH") &
+             ens %in% significant_de_genes & 
+            consequence == "missense_variant") 
+filteredVars <- as_tibble(filteredVars)
+```
 
